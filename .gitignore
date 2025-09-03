@@ -87,6 +87,13 @@ claude-code
 .node-version
 .ruby-version
 
+# Ignore Claude/Cline development files
+**/cline_mcp_settings.json
+**/claude-dev/**
+**/globalStorage/**
+**/*AppData*/**
+**/*Users*/**
+
 # Ignore temporary migration files
 schema_migration*.sql
 
