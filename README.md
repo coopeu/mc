@@ -1,144 +1,114 @@
-## Development Environment Overview
+# 🏍️ motos.cat - Motorcycle Social Network Platform
 
-### **Primary Projects**
+[![Ruby](https://img.shields.io/badge/Ruby-3.4-red.svg)](https://www.ruby-lang.org/)
+[![Rails](https://img.shields.io/badge/Rails-8.0-red.svg)](https://rubyonrails.org/)
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![Build Status](https://img.shields.io/badge/Build-Passing-green.svg)](#)
 
-- **motos.cat** - Main Ruby on Rails application (last active July 16, 20:30)
+A comprehensive motorcycle social networking platform built with Ruby on Rails, featuring ride organization, social interactions, e-commerce, and subscription management with Stripe integration.
 
-  - Rails 7+/8 moto riders/rides application with Stripe integration
-  - Subscription management system
-  - User regsitartion, authentication and payment processing
+## 🌟 Features
 
-- **coopeu.com** - Another web application (likely production)
+### 🏗️ Core Platform Features
+- **User Authentication & Profiles** - Secure registration with Devise, comprehensive user profiles
+- **Ride Organization (Sortides)** - Create, manage, and join motorcycle rides with GPS integration
+- **Social Network (Piulades)** - Share posts, photos, like and comment system
+- **E-commerce Integration** - Product catalog with shopping cart and secure payments
+- **Subscription Management** - Multiple membership tiers with Stripe billing
+- **Admin Dashboard** - Comprehensive content and user management
 
-- **mc, mr, mrc** - Additional Rails projects (possibly staging/testing environments)
+### 🔒 Security & File Management
+- **Advanced File Upload Validation** - MIME type, extension, and malicious content detection
+- **Image Processing** - Automatic resizing, dimension validation, and optimization
+- **Security Scanning** - Brakeman integration for vulnerability detection
+- **Input Sanitization** - XSS and injection attack prevention
 
-### **Database & Admin Tools**
+### 💳 Payment Integration
+- **Stripe Payment Processing** - Secure one-time and recurring payments
+- **Webhook Handling** - Real-time payment event processing
+- **Subscription Billing** - Automated recurring billing with plan management
+- **Multi-currency Support** - EUR primary with extensible currency system
 
-- **phpmyadmin** - MySQL database management interface
-- **adminer** - Lightweight database management tool (single PHP file)
-- **MariaDB/MySQL** - Database server (inferred from Rails apps)
+### 🧪 Testing & Quality
+- **Comprehensive Test Suite** - 80%+ code coverage with SimpleCov
+- **Payment Flow Testing** - Complete Stripe integration testing with VCR
+- **Security Testing** - File upload and authentication security tests
+- **System Testing** - End-to-end user journey validation
 
-### **Development Infrastructure**
+## 🚀 Quick Start
 
-- **Backup Strategy**: Automated daily backups (`motos.cat.20250716`, `motos.cat.20250717`)
-- **Environment Management**: `.env` file for configuration
-- **Version Control**: Git repositories throughout projects
-- **SSH Access**: `ssh_connect.bat` for Windows-based connections
+### Prerequisites
 
-### **Technology Stack**
+- Ruby 3.4+
+- Rails 8.0+
+- MySQL/MariaDB
+- Node.js 18+
+- Redis (for background jobs)
 
-- **Backend**: Ruby on Rails (this app)
-- **Frontend**: ERB templates, Tailwind CSS
-- **Payments**: Stripe integration (see Stripe section below)
-- **Database**: MySQL/MariaDB fcv:Consenorg3005
+### Installation
 
-### **Key Configuration Files**
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/coopeu/MotosCat.git
+   cd MotosCat
+   ```
 
-- `stripe.txt` - Complete Stripe setup documentation
-- `PC_W11-PS_Debian12.txt` - System configuration notes
-- `AI Implementation Guide for Motos.cat.md` - AI integration documentation
-- `.env` - Environment variables and secrets
+2. **Install dependencies**
+   ```bash
+   bundle install
+   yarn install
+   ```
 
-### **Development Workflow**
+3. **Database setup**
+   ```bash
+   rails db:create
+   rails db:migrate
+   rails db:seed
+   ```
 
-- **Local Development**: VSCode on Windows 11 → SSH to Debian 12 server
-- **Staging**: Multiple project versions for testing
-- **Production**: motos.cat and coopeu.com the two main production sites
-- **Monitoring**: Comprehensive logging and backup systems
+4. **Configure environment variables**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
 
-This is a well-structured Rails development environment with proper separation of concerns, automated backups, and integrated payment processing capabilities.
+5. **Start the development server**
+   ```bash
+   bin/dev
+   ```
 
-## Overview
+Visit `http://localhost:3000` to access the application.
 
-Ruby on Rails 7+/8 motorcycle social networking platform built for motos.cat with subscription management, ride organization, and social features. Uses Stripe for payments, Tailwind CSS for styling, and includes a comprehensive admin panel.
+## 🛠️ Development
 
-## DEV ENV Key Features
+### Smart Git Workflow
 
-## LOCAL
-
-W11 PRO N
-BaseBoard ASUSTeK COMPUTER INC. ASUS MOTHRERBOARD 3x4TB mve2 ssd
-ASUS PRIME Z790P 5500MHz
-BIOS UEFI Version/Date American Megatrends Inc. 1604, 15/12/2023
-MEMORY: 128MB DDR5 5600MHz
-AHCI: PCIEX1 (G3) \*4 (SATA)
-Processor 13th Gen Intel(R) Core(TM) i9-13900K, 3000 Mhz, 24 Core(s), 32 Logical Processor(s)
-RAID:
-STI2000MO127 12TB WESTERN DIGITAL 7300RPM 256MB CACHE 64MB BUFFER 6Gb/s SATA 3.0 3.5"N
-FANXIANG S770 4TB
-FANXIANG S880 4TB
-NETAC NVMe SSD 4TB
-USB:
-WD 4TB TOSHIBA 640GB
-
----
-
-INTEL PENTIUM i9 13000HX 2.20GHz
-128 GB DRAM 5600MHz
-NVIDIA GeForce RTX 4060 8GB VRAM
-W11 Starting to SANDISK SSD 512GB
-4 external disk
-
----
-
-# ////////// REMOTE SERVER //////////////////////
-
-## https://motos.cat on HOSTIKA.lt
-
-Description: Debian GNU/Linux 12 (bookworm)
-Apache/2.4.62 (Debian) + Passenger
-ruby 3.3.5
-Rails 8.0.3
-Mysql/MariaDB
-rvm 1.29.12
-https OPENSSL Letsencrypt self-signed certificates
-Motos.cat A 185.40.6.19 in HOSTIKA.lt
-STRIPE motos.cat account: acct_1QSeF8RqLKaSIMq9
-STRIPE MRCAT: acct_1QgqOyGye1N6CE33
-
-## Architecture
-
-Apache server + Passenger
-/var/www/html/motos.cat
-
-### Core Domains
-
-- **User Management**: Devise authentication, profiles, subscription tiers
-- **Ride Organization**: Sortides (rides), inscriptions, attendance tracking
-- **Social Features**: Posts (piulades), likes, follows, comments
-- **Commerce**: Products, carts, Stripe payments, subscription plans
-- **Content Management**: Pages, categories, images, CMS features
-
-### Key Models
-
-- `User`: Devise-based with subscription status and roles
-- `Sortide`: Ride events with inscriptions and comments
-- `Piulade`: Social posts with likes/comments system
-- `Product`/`Plan`: Commerce items with Stripe integration
-- `Category`: Content organization
-- `Cart`/`Purchase`: Shopping and order management
-
-### Routing Patterns
-
-- RESTful resources with Catalan naming conventions
-- Nested routes for comments and images
-- Custom endpoints for Stripe webhooks, user follows
-- Static pages under `/pages` namespace
-
-## Development Commands
-
-### Setup & Installation
+The project includes an intelligent Git workflow system:
 
 ```bash
-# Install dependencies
-bundle install
-npm ci
+# Smart commit with auto-generated messages
+./scripts/git-smart-commit.sh commit
 
-# Database setup
-rails db:create db:migrate db:seed
+# Complete workflow: add, commit, push
+./scripts/git-smart-commit.sh full
 
-# Start development server
-bin/dev  # Runs Rails + Tailwind + CSS watch
+# Create feature branch with intelligent naming
+./scripts/git-smart-commit.sh branch create
+```
+
+See [Git Workflow Guide](docs/GIT_WORKFLOW.md) for detailed usage.
+
+### Code Quality
+
+```bash
+# Run RuboCop for code style
+bundle exec rubocop
+
+# Run security scan
+bundle exec brakeman
+
+# Run test suite with coverage
+rails test
 ```
 
 ### Testing
@@ -147,242 +117,177 @@ bin/dev  # Runs Rails + Tailwind + CSS watch
 # Run all tests
 rails test
 
-# Run system tests
-rails test:system
+# Run specific test suites
+rails test:stripe          # Stripe payment tests
+rails test:security        # Security-focused tests
+rails test:comprehensive   # Full test suite with coverage
 ```
 
-### Code Quality
-```bash
-# Lint Ruby code
-rubocop
-rubocop -a  # Auto-fix
+## 📊 Project Structure
 
-# Type checking
-npm run type-check
-
-# Build assets
-npm run build
-npm run build:prod
+```
+motos.cat/
+├── app/
+│   ├── controllers/       # Request handling and API endpoints
+│   ├── models/           # Data models and business logic
+│   │   └── concerns/     # Shared model functionality
+│   ├── views/            # ERB templates and UI components
+│   ├── services/         # Business logic services
+│   └── javascript/       # Stimulus controllers and JS
+├── config/               # Application configuration
+├── db/                   # Database migrations and schema
+├── test/                 # Comprehensive test suite
+│   ├── controllers/      # Controller integration tests
+│   ├── models/          # Model unit tests
+│   ├── system/          # End-to-end system tests
+│   └── support/         # Test helpers and utilities
+├── scripts/             # Development and deployment scripts
+└── docs/                # Project documentation
 ```
 
-### Database Operations
-
-```bash
-# Reset database
-rails db:drop db:create db:migrate db:seed
-
-# Generate migration
-rails generate migration AddFieldToModel field:type
-
-# Open console
-rails console
-```
-
-### Background Jobs
-
-```bash
-# Start Sidekiq
-bundle exec sidekiq
-
-# Monitor jobs
-redis-cli monitor
-```
-
-## Troubleshooting
-
-- Tailwind error during tests (e.g., unknown utility): tests disable the Tailwind build with a no-op Rake task in `lib/tasks/tailwind_test_noop.rake`.
-- Webhook 400 responses: verify `STRIPE_WEBHOOK_SECRET` and that the `Stripe-Signature` header is present.
-- Database test failures: ensure `motoscat_test` exists and schema is up to date, or keep webhook tests DB-independent (no fixtures).
-
-## Roadmap
-## Admin Utilities
-
-### Catalonia Riders Map
-
-View all approved riders on an interactive map:
-
-```bash
-# Visit in browser
-https://motos.cat/maps/riders
-```
-
-Features:
-- Interactive map centered on Catalonia
-- Filter by province and subscription plan
-- Click markers to see rider details
-- Color-coded markers by plan type
-
-### Geocode Users
-
-Add coordinates to existing users for the map:
-
-```bash
-bundle exec rake users:geocode
-```
-
-### Validate Stripe Prices
-
-Check that each `Plan` points to a valid Stripe Price ID (`sku` preferred, fallback `codi`):
-
-```bash
-STRIPE_SECRET_KEY=sk_test_123 bundle exec rake stripe:validate_prices
-```
-
-Output examples:
-
-- `[OK] Plan #3 'HABITUAL' => Price price_123 (29.0 eur)`
-- `[NOT FOUND] Plan #2 'FREQÜENT' => Price 'price_bad' (No such price: 'price_bad')`
-
-- Handle `checkout.session.completed` and `payment_intent.succeeded` with concrete domain updates
-- Add request specs for additional webhooks
-- Document admin workflows and content management
-
-## Getting Started
-
-### 1) Environment Variables
-
-Create `.env` or set environment variables in your shell (values are examples):
-
-```bash
-STRIPE_PUBLISHABLE_KEY=pk_test_123
-STRIPE_SECRET_KEY=sk_test_123
-# This is the signing secret for your webhook endpoint
-STRIPE_WEBHOOK_SECRET=whsec_123
-
-# Database (if not using credentials)
-DB_USERNAME=motos
-DB_PASSWORD=secret
-
-# Recaptcha (optional)
-RECAPTCHA_SITE_KEY=
-RECAPTCHA_SECRET_KEY=
-
-# Redis (optional)
-REDIS_URL=redis://localhost:6379/1
-```
-
-Then install and run:
-
-```bash
-bundle install
-npm ci
-rails db:create db:migrate
-bin/dev
-```
-
-### 2) Stripe Webhook Setup (Local)
-
-Option A: Stripe CLI (recommended)
-
-```bash
-# Log in first (one-time)
-stripe login
-
-# Forward events to your local server (update port if different)
-stripe listen --forward-to localhost:3000/webhook/stripe
-
-# The CLI prints a signing secret like: whsec_xxx
-# Copy that value to STRIPE_WEBHOOK_SECRET
-```
-
-Option B: ngrok (or similar)
-
-```bash
-ngrok http 3000
-# Configure the public URL in your Stripe Dashboard → Developers → Webhooks
-# Endpoint: POST https://<your-ngrok>.ngrok.app/webhook/stripe
-# Signing secret: copy to STRIPE_WEBHOOK_SECRET
-```
-
-### 3) Create a Test Checkout Session (optional)
-
-Use your app's UI flow or the Stripe CLI to trigger events:
-
-```bash
-# Example: create a PaymentIntent (adapt to your flow)
-stripe payment_intents create \
-  --amount 2000 \
-  --currency eur
-
-# Or create a Checkout Session
-stripe checkout sessions create \
-  --mode payment \
-  --success_url "http://localhost:3000/success" \
-  --cancel_url "http://localhost:3000/cancel" \
-  --line-items "price=price_123,quantity=1"
-```
-
-## Key Configuration
+## 🔧 Configuration
 
 ### Environment Variables
 
-rails credentials:edit
+Key configuration variables (see `.env.example`):
 
-- `STRIPE_PUBLISHABLE_KEY` / `STRIPE_SECRET_KEY`
-- `STRIPE_WEBHOOK_SECRET`
-- `RECAPTCHA_SITE_KEY` / `RECAPTCHA_SECRET_KEY`
-- `REDIS_URL`
-- Database credentials in `config/database.yml`
+```bash
+# Database
+DATABASE_URL=mysql2://user:password@localhost/motos_cat
 
-### Locale & Timezone
+# Stripe Payment Processing
+STRIPE_PUBLISHABLE_KEY=pk_test_...
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
 
-- Default locale: Catalan (`:ca`)
-- Available locales: English, Catalan
-- Timezone: Europe/Paris
-- Assets: Tailwind CSS 4.0.0.beta4 + Webpack
+# Redis (for background jobs)
+REDIS_URL=redis://localhost:6379/0
 
-### Payment Integration
+# Security
+SECRET_KEY_BASE=your_secret_key_base
+```
 
-- Stripe Checkout for one-time purchases
-- Stripe Billing for subscriptions
-- Webhook handling at `/webhook/stripe`
-- Plans defined in `app/models/plan.rb`
+### Stripe Configuration
 
-#### Stripe Webhooks
+1. Create a Stripe account at [stripe.com](https://stripe.com)
+2. Get your API keys from the Stripe dashboard
+3. Configure webhook endpoints for payment events
+4. Set up your products and pricing plans
 
-- Set `STRIPE_WEBHOOK_SECRET` in the environment where webhooks are received.
-- Stripe sends events to: `POST /webhook/stripe`.
-- Webhook signature is verified via `Stripe::Webhook.construct_event` in `WebhooksController`.
-- Extend `handle_stripe_event` to connect events to domain logic.
+## 🚀 Deployment
 
-## File Structure Highlights
+### Production Setup
 
-### Controllers
+1. **Server Requirements**
+   - Ubuntu 20.04+ or similar
+   - Ruby 3.4+, Rails 8.0+
+   - MySQL/MariaDB
+   - Redis
+   - Nginx (recommended)
 
-- `SortidesController`: Ride management and inscriptions
-- `UsersController`: Profile and social features
-- `ProductsController`: Commerce with Stripe integration
-- `AdminController`: Admin dashboard
+2. **Deploy with Docker**
+   ```bash
+   docker build -t motos-cat .
+   docker run -p 3000:3000 motos-cat
+   ```
 
-### Services
+3. **Manual Deployment**
+   ```bash
+   # Set production environment
+   export RAILS_ENV=production
+   
+   # Install dependencies
+   bundle install --without development test
+   
+   # Precompile assets
+   rails assets:precompile
+   
+   # Run migrations
+   rails db:migrate
+   
+   # Start server
+   rails server -e production
+   ```
 
-- `StripeService`: Payment processing
-- `RecaptchaEnterpriseService`: Security verification
+### GitHub Repository Setup
 
-### Background Jobs
+To push to GitHub:
 
-- `PuntuacioSetmanalJob`: Weekly scoring calculations
-- Stripe webhook processing via Sidekiq
+```bash
+# Run the automated setup script
+./scripts/setup-github-remote.sh
 
-## Common Development Tasks
+# Or manually configure
+git remote add origin https://github.com/coopeu/MotosCat.git
+git push -u origin main
+```
 
-### Adding New Ride Type
+## 📚 Documentation
 
-1. Update `Sortide` model with new fields
-2. Add form fields in views/sortides/\_form.html.erb
-3. Update controller strong params
-4. Add translations in config/locales/ca.yml
+- [Git Workflow Guide](docs/GIT_WORKFLOW.md) - Intelligent Git operations and branch management
+- [API Documentation](docs/API.md) - REST API endpoints and usage
+- [Deployment Guide](docs/DEPLOYMENT.md) - Production deployment instructions
+- [Contributing Guide](CONTRIBUTING.md) - Development guidelines and standards
 
-### Stripe Integration Flow
+## 🧪 Testing
 
-1. Create checkout session via `StripeService`
-2. Redirect to Stripe Checkout
-3. Handle webhook at `WebhooksController#stripe`
-4. Update user subscription status
+The project includes comprehensive testing:
 
-### Social Features
+- **Unit Tests** - Model validations and business logic
+- **Integration Tests** - Controller and API endpoint testing
+- **System Tests** - End-to-end user journey validation
+- **Security Tests** - File upload and authentication security
+- **Payment Tests** - Complete Stripe integration testing
 
-- Follow system via `FollowsController`
-- Like system via `LikesController`
-- Comments via nested resources under piulades/sortides
+Run tests with coverage reporting:
 
+```bash
+rails test:comprehensive
+open coverage/index.html  # View coverage report
+```
+
+## 🔒 Security
+
+Security measures implemented:
+
+- **File Upload Validation** - Comprehensive malicious file detection
+- **Input Sanitization** - XSS and injection prevention
+- **Authentication** - Secure user authentication with Devise
+- **Authorization** - Role-based access control
+- **Payment Security** - PCI-compliant Stripe integration
+- **Regular Security Scans** - Automated vulnerability detection
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Make your changes and add tests
+4. Run the test suite: `rails test`
+5. Commit with conventional messages: `./scripts/git-smart-commit.sh commit`
+6. Push to your fork: `git push origin feature/amazing-feature`
+7. Create a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- **Ruby on Rails** - Web application framework
+- **Stripe** - Payment processing platform
+- **Tailwind CSS** - Utility-first CSS framework
+- **Stimulus** - JavaScript framework for Rails
+- **Devise** - Authentication solution
+- **RuboCop** - Code style and quality tool
+
+## 📞 Support
+
+For support and questions:
+
+- **Email**: coopeu@coopeu.com
+- **Website**: [motos.cat](https://motos.cat)
+- **Issues**: [GitHub Issues](https://github.com/coopeu/MotosCat/issues)
+
+---
+
+**Built with ❤️ for the motorcycle community in Catalunya**
