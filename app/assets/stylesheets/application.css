@@ -1,0 +1,20 @@
+/*
+ *= require_tree .
+ *= require_self
+ */
+@import "tailwindcss";
+
+@source "./**/*.css";
+
+/* Your existing styles */
+/* Hide the second group of options in the Trix toolbar */
+trix-toolbar .trix-button-group--block-tools {
+    display: none !important;
+}
+
+/* Hide the upload file button */
+trix-toolbar .trix-button--icon-attach {
+    display: none !important;
+}
+
+/* Rest of your styles... */

@@ -1,0 +1,48 @@
+<div class="">
+<%= form_tag charges_donations_path, id:'chargeForm' do %>
+
+                    <% if flash[:error].present? %>
+                      <div id="error_explanation">
+                        <p><%= flash[:error] %></p>
+                      </div>
+                    <% end %>
+
+<div class="text-center pt-8 mb-8 mt-auto">
+<script src="https://checkout.stripe.com/checkout.js" class='stripe-button'
+    data-key='<%= stripe_publishable_key %>'
+    data-mode="payment"
+    data-sku="<%#= donation.sku %>"
+    data-image="<%= asset_path('MilRevolts200x200.png') %>"
+    data-name="<%#= donation.nom %>"
+    data-description="DONACIÓ A FONS PERDUT"
+    data-amount="<%#= donation.import * 100 %>"
+    data-locale="es"
+    data-currency="eur"
+    data_submit_type="pay"
+    data-label='Ajudans amb <%#= donation.import%>€'>
+
+
+    var handler = StripeCheckout.configure({
+      key:'<%= stripe_publishable_key %>',
+      token: function(token, arg) {
+        document.getElementById("stripeToken").value = token.id;
+        document.getElementById("stripeEmail").value = token.email;
+        document.getElementById("chargeForm").submit();
+      }
+});
+</script>
+<%= hidden_field_tag 'stripeToken' %>
+<%#= hidden_field_tag 'amount', donation.import %>
+<%= hidden_field_tag 'stripeEmail' %>
+<%#= hidden_field_tag 'product_id', donation.product_id %>
+<%#= hidden_field_tag 'product_sku', donation.sku %>
+<%#= hidden_field_tag 'user_id', current_user.id %>
+<%#= hidden_field_tag 'donation_id', donation.id %>
+<% end %>
+<p class='mt-4 text-xs text-teal-500 font-bolt'>Si no es obre la finestra del pagament, SUP clica <%#= link_to 'aquí', donation_path(donation), class:'text-sm' %>
+  
+<p class="my-6 text-teal-700"><%#= @product.sku %></p>
+
+</p>
+</div>
+</div>

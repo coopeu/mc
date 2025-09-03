@@ -1,0 +1,12 @@
+<%= form_with model: [piulade, @piulade_comment], data: {controller: "reset-form", action: "turbo:submit-end->reset-form#reset" } do |form| %>
+  <p class="pt-3 text-teal-600 font-bold">Replica a <%= link_to piulade.user.slug, user_path(piulade.user), class: "text-xs text-lime-500 hover:text-lime-600" %></p>
+  <div class="flex items-start justify-between space-x-3 py-6 border-b">
+    <%= render_user_avatar(current_user) %>
+    <div class="flex-1">
+      <%= form.text_area :body, class: "border-none w-full resize-none rounded-md focus:shadow-none focus:border-none ring-0 focus:ring-0 focus:outline-hidden text-lg py-3 px-1 h-full min-h-[100px]", placeholder: "Piula la teva resposta" %>
+      <div class="flex justify-center mt-3">
+        <%= form.submit "Contesta", class: "btn-sm" %>
+      </div>
+    </div>
+  </div>
+<% end %>

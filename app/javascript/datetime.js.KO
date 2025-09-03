@@ -1,0 +1,20 @@
+/**
+ * Initializes an event listener on an input field of type "date" to reformat the date value.
+ * 
+ * This function selects the first input element of type "date" in the document and attaches
+ * an event listener to it. When the date value changes, the function reformats the date
+ * from "YYYY-MM-DD" to "DD/MM/YYYY".
+ * 
+ * @returns {void} This function does not return a value.
+ */
+function reformatDateField() {
+    const dateField = document.querySelector('input[type="date"]');
+  
+    if (dateField) {
+      dateField.addEventListener("change", function(event) {
+        const dateValue = event.target.value;
+        const [year, month, day] = dateValue.split("-");
+        event.target.value = `${day}/${month}/${year}`;
+      });
+    }
+}

@@ -1,0 +1,8 @@
+#MRLIFE
+Recaptcha.configure do |config|
+  config.site_key  = Rails.application.credentials.dig(:site_key)
+  config.secret_key = Rails.application.credentials.dig(:secret_key)
+#  config.v3 = true
+#  config.site_key  = '6LfgaCQqAAAAAMutoi5dbVIuQZ8jVIyzl5V6H7EN'
+#  config.secret_key = '6LfgaCQqAAAAAHV6eTWoJMJVZR3434BdvCpxmnb4'
+end

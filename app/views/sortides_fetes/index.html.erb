@@ -1,0 +1,40 @@
+<div class="bg-lime-50 text-lime-700">
+  <div class="p-3 ml-9 md:ml-12">
+    <h1 class="my-4 text-teal017 text-3xl md:text-5xl font-bold text-center" style='text-shadow: 2px 2px 2px #fff, 3px 3px 3px #84CC16;'>
+      <%= image_tag 'icons/route-gps-svgrepo-com2.svg', size:'52x52', class:'inline-block mb-2 mr-2' %> Sortides Fetes
+    </h1>
+    <hr class='teal-1 mt-1 mb-6 border-2 border-lime-300' />
+    <% if admin?(current_user) %>
+      <div class="my-4">
+        <%= link_to 'Nova', new_sortides_fete_path, method: :create, class:'btn-teal' %>
+      </div>
+    <% end %>
+    <div id="listing" class="text-sm mb-8">
+      <% @sortides_fetes.each do |sortide| %>
+        <p>
+          <%= l sortide.start_date %>.
+          <% if sortide.youtube_link.present? %>
+            <b><%= link_to sortide.title, sortide.youtube_link, target: '_blank' %></b>
+          <% else %>
+            <%= sortide.title %>
+          <% end %>
+          <% if admin?(current_user) %>
+            <small>&nbsp;<%= link_to 'Edita', edit_sortides_fete_path(sortide), class:'text-xs ml-1' %></small>
+          <% end %>
+        </p>
+      <% end %>
+      <!-- fetes ara -->
+      <% @sortides.each do |sortide| %>
+        <% if sortide.start_date.past? || sortide.start_date.today? %>
+          <p>
+            <%= sortide.start_date.strftime('%d-%m-%Y') %> .
+            <b><%= link_to sortide.title, sortide, target: '_blank' %></b>
+            <% if admin?(current_user) %>
+              <small>&nbsp;<%= link_to 'Edita', edit_sortide_path(sortide), class:'text-xs ml-1' %></small>
+            <% end %>
+          </p>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,64 @@
+<div class="container h-full mx-auto my-10 lg:px-0 px-4">
+
+<h3 class="mb-8 text-teal-500 text-center text-2xl italic">
+  <p>Gràcies <%= @user.nom %>!</p>
+  <p class='text-xl'>La teva compra ha estat realitzada ara mateix amb èxit</p>
+</h3>
+ <div class="lg:w-2/5 w-full m-auto">
+  <div class='flex justify-center'><%= image_tag("web/milrevoltslife_250h.png", :alt => "Mil Revolts", class:"ml-6 object-center mb-6", style:'float-center') %>
+  </div>
+  <div class="lg:p-10 p-4 mb-6 bg-teal-100 rounded-lg border-2 border-gray-400 text-teal-700 text-center">
+  <p class="my-6 text-teal-700 text-center text-3xl font-bold"> REBUT</p>       
+      <div class="bg-white p-3 text-left rounded-xs border-2 border-teal-200">
+        <div class="">
+          <small>MOTORISTA:</small> 
+          <SPAN class='text-xl font-bold'><%= @user.nom %> <%= @user.cognom1 %> i <%= @user.cognom2 %></SPAN>
+        </div>      
+        <div class="">
+          <small>TIPUS:</small> 
+          <SPAN class='font-bold'><%= @product.tipus %></SPAN>
+        </div>      
+        <div class="">
+          <small>PRODUCTE:</small> 
+          <SPAN class='font-bold'><%= @product.nom %></SPAN>
+        </div>
+        <div class="">          
+          <small>IMPORT:</small>
+          <SPAN class='font-bold'><%= @product.preu %> €</SPAN>
+        </div>
+        <div class="">          
+          <small>VENCIMENT:</small>
+          <SPAN class='font-bold'><%= ((@purchase.created_at) + 1.year).strftime("%Y  - %m - %d") %> </SPAN>
+        </div>
+
+        
+        <% @sortide.title if @sortide.title? %>
+        
+
+        <div class="">          
+          <small>CODI:</small>
+          <SPAN class=''><%= @product.codi %></SPAN>
+        </div>
+        <div class="">          
+          <small>IDENTIFICADOR:</small>
+          <SPAN class=''><%= @product.sku %></SPAN>
+        </div>
+        <div class="">          
+          <small>COMPRA:</small>
+        <small><%= @purchase.uuid %> al <%= @purchase.created_at %></small>
+        </div>
+        <div class="">          
+          <small>EMAIL:</small>
+          <small><%= @purchase.email %></small>
+        </div>
+     </div>
+        <div class="text-left mt-6 leading-none">
+ <!--         <a href="https://s3-us-west-2.amazonaws.com/rails-learnapp-bucket/kitty.JPG"><button type="button" class="bg-teal-600 px-3 py-2 text-white rounded-xs font-bold">DESCARREGA'L</button></a>-->
+          <SPAN class='text-xs'>Ben aviat rebràs el rebut a aquesta mateixa adreça electrònica. Mentrestant i temporalment és valit a tots els efectes, imprimir-se aquest mateix rebut, per fer-lo efectiu.</SPAN>
+        </div>
+
+
+  </div>
+ </div>
+   <p class="my-6 text-teal-700"><%#= @product.sku %></p>
+</div>

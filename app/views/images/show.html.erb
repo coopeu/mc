@@ -1,0 +1,11 @@
+<div class="image-show">
+  <h1>Image Details</h1>
+  <div class="image-container">
+    <%= image_tag @image.file, class: "w-full h-auto rounded-md shadow-md" %>
+  </div>
+  <p class="caption mt-2 mb-4 text-teal-800 font-semibold"><%= @image.caption %></p>
+  <div class="my-4">
+  <%= button_to 'Delete', remove_sortide_image_path(@sortide, @image), method: :delete, data: { confirm: 'Are you sure you want to delete this image?' }, class: 'btn-2xs-red' %>
+  <%= link_to 'Back to Sortide', @sortide, class: 'btn-sm' %>
+</div>
+</div>

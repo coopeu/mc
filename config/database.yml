@@ -1,0 +1,30 @@
+default: &default
+  adapter: mysql2
+  encoding: utf8
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  #default_file: ~/.my.cnf
+  socket: /var/run/mysqld/mysqld.sock
+  host: localhost
+  pool: 10
+#  reconnect: false
+  port: 3306
+  database: motoscat
+  username: <%= Rails.application.credentials.dig(:username) %>
+  password: <%= Rails.application.credentials.dig(:password) %> 
+ 
+development:
+  <<: *default
+#  username: <%= Rails.application.credentials.dig(:database, :username) %>
+#  password: <%= Rails.application.credentials.dig(:database, :password) %>
+#
+production:
+  <<: *default
+#  username: <%= Rails.application.credentials.dig(:default, :database, :username) %>
+#  password: <%= Rails.application.credentials.dig(:default, :database, :password) %>
+staging:
+  <<: *default
+#  username: <%= Rails.application.credentials.dig(:default, :database, :username) %>
+#  database: <%= Rails.application.credentials.dig(:default, :database, :password) %>
+test:
+  <<: *default
+  database: motoscat_test

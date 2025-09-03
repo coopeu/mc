@@ -1,0 +1,95 @@
+/* TailwindCSS v4.0.0.beta.4 */
+
+@import "tailwindcss";
+
+@layer components {
+  @font-face {
+    font-family: "Broken";
+    src: url("../fonts/Broken.otf");
+  }
+
+  @font-face {
+    font-family: "Pirulen";
+    src: url("../fonts/Pirulen.otf");
+  }
+
+  .btn-teal1 {
+    @apply flex-shrink-0 z-10 inline-flex items-center ml-2 py-2.5 px-4 text-sm font-medium text-center text-white bg-teal-800 border border-teal-800 rounded-lg hover:bg-teal-700;
+  }
+
+  .btn-00 {
+    @apply rounded-lg py-2 px-3 bg-yellow-200 font-bold border border-lime-600 hover:bg-yellow-300 hover:font-extrabold text-sm flex items-center justify-center;
+  }
+
+  .btn-default {
+    @apply rounded-lg py-2 px-3 bg-yellow-200 text-sm font-bold border border-lime-600 hover:bg-yellow-300 hover:font-extrabold flex items-center justify-center;
+  }
+
+  .btn-sm {
+    @apply rounded py-1 px-2 bg-yellow-200 text-sm font-semibold border border-lime-600 hover:bg-yellow-300 hover:font-bold flex items-center justify-center;
+  }
+
+  .btn-xs {
+    @apply rounded py-1 px-1 bg-yellow-200 text-xs border border-lime-600 hover:bg-yellow-300 hover:font-semibold flex items-center justify-center;
+  }
+
+  .btn-half-width {
+    @apply w-1/2 mx-auto rounded-lg py-2 px-3 bg-yellow-200 font-bold border border-lime-600 hover:bg-yellow-300 hover:font-extrabold text-sm flex items-center justify-center;
+  }
+
+  .btn-2xs-green {
+    @apply rounded py-0.5 px-0.5 bg-green-200 text-[8px] border-lime-600 hover:bg-green-300 hover:font-bold flex items-center justify-center;
+  }
+
+  .btn-2xs {
+    @apply rounded py-0.5 px-0.5 bg-yellow-200 text-[0.625rem] border border-lime-600 hover:bg-yellow-300 hover:font-semibold flex items-center justify-center;
+  }
+
+  .btn-2xs-red {
+    @apply rounded py-0.5 px-0.5 bg-red-200 text-[10px] border border-lime-600 hover:bg-red-300 hover:font-bold flex items-center justify-center;
+  }
+
+  .btn-blue {
+    @apply text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2;
+  }
+
+  .btn-green {
+    @apply text-white bg-green-600 hover:bg-green-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2;
+  }
+
+  .btn-cyan {
+    @apply text-white bg-cyan-600 hover:bg-cyan-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2;
+  }
+
+  .btn-teal {
+    @apply text-white bg-teal-600 hover:bg-teal-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2;
+  }
+
+  .btn-lime {
+    @apply text-gray-900 bg-lime-500 hover:bg-lime-600 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2;
+  }
+
+  .btn-red {
+    @apply text-white bg-red-600 hover:bg-red-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2;
+  }
+
+  .btn-pink {
+    @apply text-white bg-pink-600 hover:bg-pink-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2;
+  }
+
+  .btn-purple {
+    @apply text-white bg-purple-600 hover:bg-purple-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2;
+  }
+
+  .btn-orange {
+    @apply text-white bg-orange-600 hover:bg-orange-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2;
+  }
+
+  .btn-lime-portada {
+    @apply text-gray-800 bg-lime-400 hover:bg-lime-500 font-medium rounded-lg text-sm px-10 py-6 text-center m-2;
+  }
+
+  .btn-lime-portada:hover {
+    @apply text-red-800;
+  }
+}

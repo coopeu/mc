@@ -1,0 +1,16 @@
+<h1>Nou missatge de contacte des de Motos.cat</h1>
+<p><strong>Nom:</strong> <%= @contacte.nom %></p>
+<p><strong>Email:</strong> <%= @contacte.email %></p>
+<p><strong>Telèfon:</strong> <%= @contacte.telefon %></p>
+<h2>Missatge:</h2>
+<p><%= simple_format(@contacte.missatge) %></p>
+<p>Aquest missatge ha estat enviat des del formulari de contacte de MilRevolts.cat</p>
+confirmation_email.html.erb
+Apply
+<h1>Gràcies per contactar amb Mil Revolts Motos.cat</h1>
+<p>Hola <%= @contacte.nom %>,</p>
+<p>Hem rebut el teu missatge i ens posarem en contacte amb tu tan aviat com sigui possible.</p>
+<h2>Resum del teu missatge:</h2>
+<p><%= simple_format(@contacte.missatge) %></p>
+<p>Salutacions,<br>
+  L'equip de Motos.cat Mil Revolts</p>

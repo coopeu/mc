@@ -1,0 +1,118 @@
+Rails.application.routes.draw do
+  resources :categories
+  resources :contactes, only: %i[new create]
+  resources :plans, only: %i[index show] do
+    member do
+      post :subscribe
+    end
+  end
+  resources :charges
+  resources :charges_inscripcions, only: [:create]
+  resources :obertes_inscripcions
+  resources :charges_donations
+  # NOTE: Removed duplicate declaration of charges_inscripcions to avoid route clashes
+  resources :inscripcios, only: %i[index new create destroy]
+  resources :sortides_fetes, only: %i[index new create edit update]
+  resources :subscriptors, only: [:create]
+  resources :likes, only: %i[create destroy]
+
+  resources :piulades do
+    resources :piulade_comments, only: %i[create destroy]
+    member do
+      post :repiulade
+      delete :remove_file
+    end
+  end
+
+  resources :products do
+    resource :buy_now, only: %i[show create], controller: :buy_now do
+      get 'success', on: :collection
+    end
+  end
+
+  resources :carts, only: %i[create show destroy] do
+    get 'checkout', on: :member, to: 'carts#checkout'
+    post 'stripe_session', on: :member, to: 'carts#stripe_session'
+    get 'success', on: :member, to: 'carts#success'
+  end
+
+  # Stripe webhook endpoint (handled without CSRF)
+  post '/webhook/stripe', to: 'webhooks#stripe'
+
+  # Devise
+  devise_for :users, controllers: {
+    passwords: 'users/passwords',
+    registrations: 'users/registrations',
+    sessions: 'users/sessions',
+  }
+
+  devise_scope :user do
+    get 'logout', to: 'devise/sessions#destroy'
+    get 'registre', to: 'users/registrations#new'
+    get 'login', to: 'devise/sessions#new', as: :login
+    get '/signout', to: 'devise/sessions#destroy', as: :signout
+  end
+
+  get 'user/:id', to: 'users#show', as: 'user' # chatroom
+
+  resources :users, only: %i[show index edit] do
+    collection do
+      get 'socis', to: 'users#socis'
+      get 'motoristes', to: 'users#index', as: :motoristes
+      get 'search', to: 'users#search'
+    end
+    member do
+      post 'follow', to: 'follows#follow'
+      delete 'unfollow', to: 'follows#unfollow'
+      post 'report', to: 'follows#report'
+      post 'inscribe', to: 'sortides#inscribe'
+    end
+  end
+
+  resources :sortides do
+    member do
+      post 'inscribe', to: 'sortides#inscribe'
+      post :create_sortide_comment
+    end
+    resources :sortide_comments, only: [:create]
+    resources :piulades, only: [:create]
+    resources :images, only: %i[new create show edit update destroy] do
+      member do
+        delete :remove
+      end
+    end
+  end
+
+  resource :admin, only: [:show], controller: :admin
+
+  get 'up' => 'rails/health#show', as: :rails_health_check
+
+  # Maps
+  get 'maps/riders', to: 'maps#riders', as: :maps_riders
+  get 'maps/riders.json', to: 'maps#riders', defaults: { format: :json }
+  
+  namespace :maps do
+    get 'riders', to: 'maps#riders'
+  end
+resources :pages
+  get 'contacte', to: 'contactes#new'
+  get 'termes', to: 'pages#termes'
+  get 'privacitat', to: 'pages#privacitat'
+  get 'faq', to: 'pages#faq'
+  get 'cookies', to: 'pages#cookies'
+  get 'gracies', to: 'pages#gracies'
+# get "nosaltres", to: "pages#nosaltres"
+  get 'club', to: 'pages#club'
+  get 'benvinguda', to: 'pages#benvinguda'
+  get 'css', to: 'pages#css'
+  get 'Tarifes', to: 'pages#tarifes'
+  get 'Subscripcions', to: 'pages#subscripcions'
+  get 'portada', to: 'pages#portada', as: 'Portada'
+  get 'elnoticiari', to: 'pages#elnoticiari', as: 'ElNoticiari'
+  get 'LaPlataforma', to: 'pages#LaPlataforma', as: 'LaPlataforma'
+  get 'restringit', to: 'pages#restringit', as: 'restringit'
+  post 'create_checkout_session', to: 'payments#create_checkout_session', as: 'create_checkout_session'
+  # Defines the root path route ("/")
+  root 'pages#portada'
+  post '/subscriptions/checkout', to: 'subscriptions#checkout'
+end

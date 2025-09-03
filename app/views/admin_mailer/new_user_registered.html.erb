@@ -1,0 +1,6 @@
+<!-- app/views/admin_mailer/new_user_registered.html.erb -->
+<p>A new user has been created:</p>
+<p>Motorista:<%= @user.nom %> <%= @user.cognom1 %> i <%= @user.cognom2 %></p>
+<p>Moto:<%= @user.moto_marca %> <%= @user.moto_model %></p>
+<p>Localitat:<%= @user.provincia %> <%= @user.comarca %> <%= @user.municipi %></p>
+<p><%= link_to 'Perfil', @user_profile_link %></p>

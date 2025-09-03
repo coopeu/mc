@@ -1,0 +1,23 @@
+<div class="w-full min-h-[100vh] flex items-center justify-center" style="background-image: url(<%= asset_path('moto_collage1.jpeg') %>); background-size: cover; background-position: center;">
+  <div class="max-w-xl w-full mx-auto shadow-lg bg-gray-200 rounded-lg py-12 text-teal-700 opacity-[.90]">
+    <div class='flex justify-center mb-4'>
+      <%= image_tag("MRC250h.png", alt: "Mil Revolts", class: "ml-6 object-center mb-8") %>
+    </div>
+    <h2 class="text-3xl mb-8 text-center font-bold">Has oblidat la teva contrasenya?</h2>
+    <div class="w-3/4 mx-auto">
+      <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <div class="field mb-4">
+          <%= f.label :email, class: "mb-2 text-lg" %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "w-full rounded-lg bg-gray-50" %>
+        </div>
+        <div class="actions w-full">
+          <%= f.submit "Envia'm instruccions per restablir la contrasenya", class: "bg-teal-500 w-full font-bold p-2 text-teal-100 rounded-lg cursor-pointer hover:bg-teal-700 hover:text-teal-300", onclick: "alert('Les instruccions per a restablir la teva clau han sigut enviades a la teva adreça de correu');" %>
+        </div>
+      <% end %>
+      <div class="flex flex-col items-center mt-4 gap-4">
+        <%= render "devise/shared/links" %>
+      </div>
+    </div>
+  </div>
+</div>

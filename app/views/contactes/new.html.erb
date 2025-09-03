@@ -1,0 +1,95 @@
+<!-- Contact -->
+<section class="bg-gray-100">
+  <div class="mx-auto max-w-(--breakpoint-xl) px-4 py-16 sm:px-6 lg:px-8 my-4">
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-4 lg:gap-8 text-lime-700">
+      <div class="rounded-lg lg:col-span-1">
+        <div class='flex justify-center'>
+          <%= image_tag("MOTOSCATSEM640.png", alt: "Mil Revolts", class: "ml-6 object-center mb-12") %>
+        </div>
+        <h2 class="text-5xl mb-4 text-center font-bold py-4">Contacte</h2>
+      </div>
+      <div class="h-full rounded-lg p-4 lg:col-span-3 lg:px-8 leading-relaxed bg-yellow-100 shadow-lg">
+        <h5 class="text-xl font-bold my-2">Posa't en contacte amb nosaltres.</h5>
+        <p>  Benvingut a la nostra secció de contacte per a motoristes apassionats com tu! Estem aquí per respondre a totes les teves preguntes, escoltar les teves suggeriments i connectar amb la comunitat de motards. No dubtis a posar-te en contacte amb nosaltres per qualsevol cosa relacionada amb el món de les motos. Estem desitjant sentir notícies teves!</p>
+        <h6  class="text-large font-bold my-4">Per què hauries de contactar amb nosaltres?</h6>
+        <ul class="max-w space-y-1 list-disc list-inside">
+          <Li><b>Assistència Tècnica:</b>
+            <br>
+            Si tens alguna pregunta o problema tècnic amb la teva moto, el nostre equip està aquí per ajudar-te a trobar una solució.</li>
+          <li><b>Recomanacions de Rutes:</b>
+            <br>
+            Estem enamorats de les rutes escèniques i emocionants. Si busques consells sobre les millors rutes per a viatjar en moto, no dubtis a demanar-nos suggeriments!</li>
+          <li><b>Esdeveniments i Comunitat:</b>
+            <br>
+            Mantén-te actualitzat sobre els últims esdeveniments i trobades per a amants de les motos. Si organitzes o coneixes algun esdeveniment que creguis que hauríem de conèixer, comunica'ns-ho!</li>
+          <li><b>Col·laboracions i Patrocini:</b>
+            <br>
+            Estem oberts a col·laboracions amb altres marques, blogs i influencers del món de les motos. Si tens alguna idea de col·laboració o estàs interessat en el patrocini, ens encantaria escoltar-la!</li>
+          <li><b>Retroalimentació i Suggeriments:</b>
+            <br>
+            Valorem molt la teva opinió i estem sempre buscant maneres de millorar. Si tens algun suggeriment sobre com podem millorar els nostres serveis o el nostre lloc web, no dubtis a compartir-lo amb nosaltres!</li>
+        </ul>
+      </div>
+      <div class="h-auto rounded-lg lg:col-span-2">
+        <hr class="border-3 border-lime-400 my-2 pb-2"/>
+        <p class='my-8 italic p-4'>No importa si ets un motorista novell o un veterà experimentat, estem aquí per atendre les teves necessitats i fer que la teva experiència en el món de les motos sigui encara millor. Omple el formulari de contacte a continuació i ens posarem en contacte amb tu tan aviat com puguem!</p>
+        <hr class="border-3 border-lime-400 my-4 pb-4"/>
+        <div class="inline-block align-bottom bg-lime-50 m-4 p-4 bg-white text-teal-400 shadow-lg">
+          <p class="text-2xl font-bold"> MilRevolts.CAT </p>
+          <p class="max-w-xl text-xl pb-8 italic">Grup de Motoristes Catalans per fer sortides en moto per Catalunya.</p>
+          <address class="my-4 not-italic inline-block align-bottom text-teal-400">
+            <p class=' text-sm'>
+              <strong>ADREÇA:</strong>
+              <BR/>12 Jaume Fabra, 08004 El Poble Sec, Barcelona, CATALONIA.
+              <BR/><BR/><strong>CONTACTE:</strong>
+              <BR/><b>Email:</b> info @ motos . cat 
+              <BR/><b>Telf.:</b> (+34) 622 25 44 58
+            </p>
+            <p class='text-teal-400 mt-8'>
+              <BR/><small><small>Copyright (c) 2018 Grup motorista 'Mil Revolts'. MUFICATA EU-RTDI SL B-61421830</small></small>
+            </p>
+          </address>
+        </div>
+      </div>
+      <div class="w-full rounded-lg bg-white px-4 py-2 shadow-lg lg:col-span-2 lg:p-12">
+        <%= simple_form_for(@contacte, local: true) do |f| %>
+          <div style="display: none;">
+            <%= text_field_tag :website, nil, class: "honeypot" %>
+          </div>
+          <%= hidden_field_tag :form_time, Time.now.to_i %>
+          <div class="xl:max-w-sm px-8 pb-4 mb-2">
+            <h4 class="text-teal-600 text-center text-2xl mb-12 font-bold"><i class="fa fa-envelope"></i> Envia'ns un missatge</h4>
+            <%= f.error_notification %>
+            <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+            <p class='mt-4 mb-2 tracking-wide font-bold text-teal-400'><i class="fa fa-user"></i> Nom</p>
+            <%= f.text_field :nom, autofocus: true ,placeholder:"Nom i cognom", class:"shadow-xs appearance-none border rounded-xs w-full py-2 px-3 text-gray-700 leading-tight focus:outline-hidden focus:shadow-outline"%>
+            <p class='mt-4 mb-2 tracking-wide font-bold text-teal-400' %>
+              <i class="fa fa-envelope"></i> Adreça correu electrònic</p>
+            <%= f.text_field :email, autofocus: true ,placeholder:"El teu email", class:"shadow-xs appearance-none border rounded-xs w-full py-2 px-3 text-gray-700 leading-tight focus:outline-hidden focus:shadow-outline" %>
+            <p class='mt-4 mb-2 tracking-wide font-bold text-teal-400'><i class="fa fa-phone"></i> Telèfon</p>
+            <%= f.text_field :telefon, autofocus: true ,placeholder:"El teu número de mòbil", class:"shadow-xs appearance-none border rounded-xs w-full py-2 px-3 text-gray-700 leading-tight focus:outline-hidden focus:shadow-outline"%>
+            <p class='mt-4 mb-2 tracking-wide font-bold text-teal-400'><i class="fa fa-comment"></i> Missatge</p>
+            <%= f.text_area :missatge, autofocus: true ,placeholder:"El teu missatge", class:"shadow-xs appearance-none border rounded-xs w-full py-2 px-3 text-gray-700 leading-tight focus:outline-hidden focus:shadow-outline"%>
+          </div>
+          <!-- SIMPLE CAPTCHA -->
+          <div class="flex flex-col justify-between items-start mt-2">
+            <p class='mt-4 mb-2 tracking-wide font-bold text-teal-400'>
+              <i class="fa fa-shield"></i> Verificació de seguretat
+            </p>
+            <div class="flex items-center w-full">
+              <% first_num = rand(1..10) %>
+              <% second_num = rand(1..10) %>
+              <% session[:captcha_result] = first_num + second_num %>
+              <span class="mr-2 text-gray-700"><%= first_num %> + <%= second_num %> = </span>
+              <%= text_field_tag :captcha_answer, nil, class: "shadow-xs appearance-none border rounded-xs py-2 px-3 text-gray-700 leading-tight focus:outline-hidden focus:shadow-outline", required: true %>
+            </div>
+            <div class="mt-4">
+              <%= f.submit "ENVIA", class: "bg-teal-500 hover:bg-teal-700 text-white hover:text-teal-100 font-bold py-2 px-4 rounded-xs" %>
+            </div>
+            <!-- ./SIMPLE CAPTCHA -->
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</section>

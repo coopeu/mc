@@ -1,0 +1,171 @@
+<section id="plans" class="bg-teal-100 py-8">
+  <div class="container mx-auto px-2 py-4 text-white">
+    <h1 class="w-full my-2 text-4xl font-bold leading-tight text-center text-teal-600">
+      <i class="fas fa-tags mr-2 text-2xl"></i> Tarifes de Subscripció
+    </h1>
+    <div class="h-1 mx-auto w-1/2 opacity-25 my-4 rounded-t" style="background: linear-gradient(90deg, #45ffff 0%, #00bbbb 100%);"></div>
+
+    <div class="flex flex-col sm:flex-row justify-center pt-12 my-12 sm:my-4">
+      <% @plans.each do |plan| %>
+        <div class="flex-none sm:flex-1 md:flex-auto lg:flex-initial rounded-t-lg bg-teal-700 mt-3 mr-2 flex flex-col">
+          <div class="p-8 text-2xl font-bold text-center text-yellow-400 txt-shadow-2"><%= plan.nom %></div>
+          <div class="border-0 border-grey-light border-t border-solid">
+            <div class="text-center border-0 border-grey-light border-b border-solid py-4">
+              Accés: <span class='uppercase text-xl font-bold'><%= plan.accesWeb %></span>
+            </div>
+            <div class="text-center border-0 border-grey-light border-b border-solid py-4 text-sm">
+              Sortides a l'any: <span class='text-xl font-bold'><%= plan.maxSortidesAny %></span>
+            </div>
+            <div class="text-center border-0 border-grey-light border-b border-solid py-4">
+              <b>Descomptes:</b><br/>
+              Inscripcions: <span class='text-xl font-bold'><%= plan.descompteInscripcions %></span> %<br/>
+              Botiga: <span class='text-xl font-bold'><%= plan.descompteBotiga %></span> %<br/>
+            </div>
+          </div>
+          <div class="w-full text-center px-8 py-8 text-2xl mt-auto text-yellow-300">
+            <b><%= plan.preu.to_i %></b> €/any
+          </div>
+          <div class='flex' style="color:white;">
+            <%= link_to "Subscriu-te", plan_path(plan), class: "w-full text-center bg-red-700 text-teal-100 px-4 py-3 rounded-xs shadow-xs border border-red-500 hover:no-underline hover:border hover:border-teal-300 hover:bg-red-900 hover:text-teal-100 hover:font-bold", style:'color:white;' %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mt-32 mb-12 text-teal-900 bg-gray-200">
+    <div class="p-4 flex">
+      <h1 class="w-full my-2 text-3xl font-bold leading-tight text-center text-teal-600">
+        <i class="fas fa-edit mr-2 text-3xl"></i> Inscripcions a les sortides
+      </h1>
+    </div>
+    <div class="p-2 flex">
+      <p class="w-full text-lg font-bold leading-tight text-center text-teal-600">
+        Tarifes 2025 per tipus de soci i número de dies de la sortida.
+      </p>
+    </div>
+    <div class="px-3 py-4 flex justify-center">
+      <table class="w-full text-md bg-white shadow-md rounded-xs mb-4">
+        <tbody>
+          <tr class="border-b">
+            <th class="text-left p-3 px-5">Soci</th>
+            <th class="text-left p-3 px-5">1 dia</th>
+            <th class="text-left p-3 px-5">2 dies</th>
+            <th class="text-left p-3 px-5">3 dies</th>
+            <th class="text-left p-3 px-5">4 dies</th>
+            <th class="text-left p-3 px-5">5 dies</th>
+          </tr>
+          <tr class="border-b hover:bg-orange-100 bg-gray-100">
+            <td class="p-3 px-5">
+              <p class="w-full my-2 text-xl font-bold leading-tight text-left text-teal-600">SIMPATITZANT</p>
+            </td>
+            <td class="p-3 px-5">16€</td>
+            <td class="p-3 px-5">24€</td>
+            <td class="p-3 px-5">30€</td>
+            <td class="p-3 px-5">35€</td>
+            <td class="p-3 px-5">40€</td>
+          </tr>
+          <tr class="border-b hover:bg-orange-100">
+            <td class="p-3 px-5">
+              <p class="w-full my-2 text-xl font-bold leading-tight text-left text-teal-600">ESPORÀDIC</p>
+            </td>
+            <td class="p-3 px-5">8€</td>
+            <td class="p-3 px-5">16€</td>
+            <td class="p-3 px-5">22€</td>
+            <td class="p-3 px-5">26€</td>
+            <td class="p-3 px-5">30€</td>
+          </tr>
+          <tr class="border-b hover:bg-orange-100 bg-gray-100">
+            <td class="p-3 px-5">
+              <p class="w-full my-2 text-xl font-bold leading-tight text-left text-teal-600">FREQÜENT</p>
+            </td>
+            <td class="p-3 px-5">4€</td>
+            <td class="p-3 px-5">8€</td>
+            <td class="p-3 px-5">15€</td>
+            <td class="p-3 px-5">20€</td>
+            <td class="p-3 px-5">25€</td>
+          </tr>
+          <tr class="border-b hover:bg-orange-100">
+            <td class="p-3 px-5">
+              <p class="w-full my-2 text-xl font-bold leading-tight text-left text-teal-600">HABITUAL</p>
+            </td>
+            <td class="p-3 px-5">2€</td>
+            <td class="p-3 px-5">5€</td>
+            <td class="p-3 px-5">10€</td>
+            <td class="p-3 px-5">15€</td>
+            <td class="p-3 px-5">20€</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 flex w-full text-justify text-lime-700 px-4 sm:px-8">
+    
+    <div class="p-4">
+      <p class="py-4 px-4 font-bold text-xl"><i class="fas fa-file-alt mr-2"></i> Subscripcions:</p>
+      <ul class="space-y-2 list-disc list-inside leading-relaxed">
+       <li>Tots els motoristes registrats al lloc web seran socis SIMPATITZANTS.</li>
+        <li>Es podrà actualitzar el pla de subscripció vigent en qualsevol moment. El preu de la millora serà la diferència entre els plans escollits, ponderada pel temps de l'actual subscripció. Així, si han passat sis mesos, la millora de plans serà la meitat de la diferència de preus entre els dos plans.</li>
+        <li>En cas suficientment justificat, el pla de subscripció anual es podrà anul·lar i es retornarà l'import no consumit menys la part corresponent a les despeses de gestió.</li>
+        <li>Tots els socis dels plans ESPORÀDIC, FREQÜENT i HABITUAL al arribar a certa puntuació podran organitzar i publicar les seves sortides com a líders i podran convidar directament els seus amics.</li>
+      </ul>
+    </div>
+    <div class="p-4 mb-4">
+      <p class="py-4 px-4 font-bold text-xl"><i class="fas fa-edit mr-2"></i> Inscripcions:</p>
+      <ul class="space-y-2 list-disc list-inside leading-relaxed">
+        <li>Oberta a totes les motos que puguin seguir un ritme normal 'touring'.</li>
+        <li>Per ordre fins assolir un màxim de motos establert.</li>
+        <li>Si us plau, registreu-vos i inscriviu-vos al web el més aviat possible per facilitar l'organització.</li>
+        <li>Consulteu els descomptes de preus de les inscripcions segons el tipus de motorista: SIMPATITZANT, ESPORÀDIC (20%), FREQÜENT (40%) o HABITUAL (80%).</li>
+        <li>El preu de la inscripció és per sortida, inclou el dret de la participació i el seguiment de les normes generals i particulars de la sortida; l'organització i la direcció, i la guia pel líder/xerpa de la sortida; l'entrega del material associat a la ruta com el fitxer GPX i un reportatge multimèdia de la sortida. S'exclou tot, i no inclou cap, tipus d'assegurança individual ni col·lectiva.</li>
+        <li>Les inscripcions es realitzaran mitjançant la pàgina web de la sortida corresponent i el més aviat possible per tenir plaça i per facilitar l'organització i les reserves. Posteriorment al pagament, és recomanable comunicar la inscripció per tal de ser afegit al <b>grup de 'WhatsApp' de la sortida</b> i així poder participar en la planificació i en les discussions des del primer moment.</li>
+        <li>En cas de pluja o altra causa major que justifiqui l'anul·lació de la sortida, s'abonarà o es retornarà el preu complet de les inscripcions a tots els participants.</li>
+      </ul>
+    </div>
+    <div class="p-4">
+      <p class="py-4 px-4 font-bold text-xl"><i class="fas fa-star mr-2"></i> Puntuació:</p>
+      <ul class="space-y-2 list-disc list-inside leading-relaxed">
+        <li>Inicialment, tots els motoristes seran categoritzats segons el seu nivell d'expertesa i experiència. Hi haurà cinc categories: <b>[1] Principiant</b> (recentment ha obtingut el carnet A o està en possessió del carnet A2); <b>[2] Novell</b> (motoristes amb poques sortides per carretera o terra); <b>[3] Experimentat</b> (motoristes amb experiència); <b>[4] Avancat </b>(motoristes que dominen diverses especialitats i amb molta experiència) i <b>[5] Expert</b> (motoristes amb un grau d'experiència molt alt, amb molts anys de carnet i moltes sortides, que competeixen habitualment i motoristes professionals).</li>
+        <li>Aquesta categoria inicial del motorista serà permanent i contínua, i constantment actualitzada segons la participació a la plataforma, l'organització de sortides, la valoració de les sortides, factors socials com el nombre de seguidors, i l'activitat a la plataforma com el nombre de ressenyes, valoracions i altres factors que, mitjançant complexos i multifactorials algoritmes amb ajuda d'eines d'Intel·ligència Artificial (IA), donaran un valor de referència de l'historial del motorista com a ponderació de la seva experiència i del seu reconeixement com a motorista.</li>
+        <li>Depenent d'aquest valor i del tipus de soci, el participant podrà realitzar més activitats a la plataforma.</li>
+      </ul>
+    </div>
+    <div class="p-4">
+      <p class="py-4 px-4 font-bold text-xl"><i class="fas fa-motorcycle mr-2"></i> Sortides:</p>
+      <ul class="space-y-2 list-disc list-inside leading-relaxed">
+        <li>Tots els motoristes dels tipus: SIMPATITZANT, ESPORÀDIC, FREQÜENT o HABITUAL podran inscriures a i participar en totes les sortides publicadas a la plataforma.</li>
+        <li>Tots els motoristes dels tipus: ESPORÀDIC, FREQÜENT o HABITUAL podran organitzar i publicar les seves sortides a l'assolir el nivell [3] EXPERIMENTAT de destressa i expertessa.</li>
+        <li>El cost de les sortides serà de 4 (quatre) euros. Aquest cost es reduirà depenent de la puntuació del motorista. En assolir una certa puntuació, el motorista estarà exempt d'aquest cost.</li>
+        <li>Les sortides hauran de tenir un dia i una hora determinats que no es podran variar fins a la data de tancament de les inscripcions. Posteriorment al tancament, i a través de la plataforma, es podran modificar segons les circumstàncies i la decisió conjunta i consensuada del líder de la sortida i dels motoristes inscrits.</li>
+        <li>Les sortides hauran de tenir un destí i una ruta definits inicialment, però la publicació del fitxer GPX de la ruta és opcional.</li>
+        <li>El líder reservarà amb anterioritat a la sortida els restaurants, visites i hotels depenent del nombre d'inscrits.</li>
+        <li>El líder de la sortida podrà convidar motoristes del seu municipi i comarca, així com els seus seguidors. En assolir una certa puntuació, els motoristes podran convidar motoristes de diverses comarques, i fins i tot, de tota la plataforma.</li>
+        <li>Posteriorment a la sortida, es realitzarà la valoració de la sortida i dels participants, i el líder publicarà el resum mentre que els participants farant la  qualificacio de la sortida i els participants. Per aquesta contribució, els participants rebran un descompte d'un euro en la inscripció de la seva propera sortida.</li>
+      </ul>
+    </div>
+    <div class="p-4">
+      <p class="py-4 px-4 font-bold text-xl"><i class="fas fa-gavel mr-2"></i> Normes:</p>
+      <ul class="space-y-2 list-disc list-inside leading-relaxed"><b>Compendi de normes i recomanacions que s'han de seguir a les sortides del grup motorista MilRevolts:</b>
+<li>Els trams es classifiquen en dos tipus: d'enllaç i lliures.</li>
+<li>Els trams d'enllaç són els nuclis metropolitans i urbans a on hi hagui forces cruïlles, rotondes o semàfors i trànsit.
+<li>Els trams lliures són les carreteres secondàries i rurals entre pobles i sense o amb poques cruïlles i poc trànsit.
+<li>Sempre es intentarà guardar compacta la formació del grup. Per això en trams d'enllaç s'utilitzarà les formacions en 'dents de serre'.
+<li>Per facilitar el grup compacte en trams d'enllaç', quan un motorista no veu el de davant intentarà accelerar per a atrapar-lo i/o si no veu pel retrovisor el motorista posterior, ha de frenar fins a tornar-lo a veure.
+<li>S’ha de avançar al motorista de davant si deixa massa distància amb el de davant seu, uns 40 metres en rectes de bona visibilitat, sense motiu, pel seu menor ritme o per qualsevol altre raó. La finalitat és compactar el grup, reduint la distància entre el primer i l’últim. Així es redueix la possibilitat de trencar-se per semàfors o en rotondes i cruïlles, i de ficar-se altres vehiclesentre mig.
+<li>Si no es diu res al contrari, sempre es continuarà per la mateixa carretera seguint la ruta planejada. A les cruïlles continuarem amb la mateixa direcció i sentit, i/o seguint la carretera principal, no desviant-se per cap carretera secundària.
+<li>Per motius organitzatius, al xerpa quan encapçali el grup, no se’l avançara mai, menys quan (i) s’hagi acordat anteriorment o (ii) se l’hi indiqui explícitament amb la ma. El/Els motoristes qui l'avancin s'aturaran a la propera cruïlla.
+<li>Últim d’arribar a un punt de reagrupació avisa amb dos 2 tocs de botzina o pel intercomunicador al xerpa que ja som tots, i es pot seguir la marxa.
+<li>Tots els participants estudiaran, prèviament, la ruta de la sortida i les seves indicacions.
+<li>Si un motorista per una urgència/emergència ha de trencar la formació del grup, parar-se o canviar de ruta, abans, el més aviat possible, ho comunicarà al xerpa o algun altre motorista ben comunicat.
+<li>El xerpa sempre compartirà la seva ubicació amb el grup (atenció només dura 6 hores si no es renova) per a que en el cas de pèrdua de motorista/es aquest/s pugui/n consultar-lo per a tornar-se a adherir-se ràpidament al grup en el pròxim punt de reagrupament.
+<li>Es recomana l'ús de navegadors a motoristes lents que generalment queden endarrerits.
+<li>S'han de senyalitzar els girs a les cruïlles i les frenades a les parades.
+<li>Avançaments: Les "carreres" queden excloses a les sortides. Cal deixar-se avançar sempre que algú ho pretengui fer. Quan repetidament hi han intents de ser superat, ens deixarem passar i facilitarem l’avançament.
+<li>Parades: S'intentarà estacionar les motos ordenadament, de forma compacta sense obstruir la sortida d'altres si no ho hem comunicat prèviament. Desprès d’una parada tothom intentarà sortir amb la resta de motoristes, estant preparat per tal de no retardar-la innecessàriament. Qualsevol incidència es comunicarà ràpidament al xerpa per aturar i/o reorganitzar la sortida.
+<li>Puntualitat: Tothom ha de procurar ser puntual als punts de trobada i a les sortides desprès d’una parada. Si es preveu un retard aquest es comunicarà el més aviat possible al xerpa. Si un motorista no arriba a temps a un lloc, el que se li proposarà d’atrapar al grup a la següent parada llarga prevista. Al punt de trobada si falta algú, el grup esperarà cinc minuts, o poden ser menys si el grup és nombros.
+<li>Sancions: L’incompliment de qualsevol de les anterior normes pot comportar una advertència al motorista. La repetició i acumulació d’advertències pot esdevenir l'aplicació d'una sanció. El desconeixement d'aquestes normes no eximeix del seu compliment. 
+</ul>
+</div>
+  </div>
+</section>

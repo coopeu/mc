@@ -1,0 +1,16 @@
+class CreateGeolocalitzaciomunicipis < ActiveRecord::Migration[8.0]
+  def change
+    create_table :geolocalitzaciomunicipis do |t|
+      t.string :municipi, null: false
+      t.string :comarca
+      t.string :provincia
+      t.decimal :x, precision: 10, scale: 6, null: false  # longitude
+      t.decimal :y, precision: 10, scale: 6, null: false  # latitude
+      
+      t.timestamps
+    end
+    
+    add_index :geolocalitzaciomunicipis, :municipi, unique: true
+    add_index :geolocalitzaciomunicipis, [:comarca, :municipi]
+  end
+end

@@ -1,0 +1,24 @@
+<div class="flex items-center justify-center min-h-screen bg-gray-100">
+  <div class="w-1/2 max-w-lg mx-auto p-6 bg-white shadow-md rounded-lg">
+    <h1 class="text-2xl font-bold text-center mb-6">New Sortides Fete</h1>
+    <div class="text-sm">
+      <%= form_with model: @sortides_fete, local: true, class: "space-y-4" do |form| %>
+        <div class="flex-1">
+          <%= form.label :Data, class: "text-sm md:text-base" %>
+          <%= form.date_field :start_date, value: @sortides_fete.start_date&.strftime('%Y-%m-%d'), class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full text-sm md:text-base" %>
+        </div>
+        <div class="flex flex-col">
+          <%= form.label :title, class: "mb-2 font-semibold" %>
+          <%= form.text_field :title, class: "p-2 border border-gray-300 rounded-xs focus:outline-hidden focus:ring-2 focus:ring-teal-500" %>
+        </div>
+        <div class="flex flex-col">
+          <%= form.label :youtube_link, class: "mb-2 font-semibold" %>
+          <%= form.text_field :youtube_link, class: "p-2 border border-gray-300 rounded-xs focus:outline-hidden focus:ring-2 focus:ring-teal-500" %>
+        </div>
+        <div class="text-center my-2">
+          <%= form.submit 'Create Sortides Fete', class: "px-4 py-2 bg-teal-500 text-white font-bold rounded-xs hover:bg-teal-600 focus:outline-hidden focus:ring-2 focus:ring-teal-500" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

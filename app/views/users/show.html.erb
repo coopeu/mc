@@ -1,0 +1,113 @@
+<section id="2x2" class="p-4 h-full text-lime-600">
+  <% if user_signed_in? && current_user.approved %>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
+      <!-- 1.1 -->
+      <div id="1.1" class="grid grid-cols-2 gap-1 h-full max-w-full rounded-lg bg-lime-100 py-4">
+        <!-- Image Column -->
+        <div class="flex items-start justify-center">
+          <% if @user.avatar.attached? %>
+            <%= image_tag(@user.avatar, class:'w-40 md:w-50 lg:60 h-auto rounded-lg') %>
+          <% else %>
+            <%= image_tag("web/motorista50bn.png", class: 'w-40 md:w-50 lg:60 h-auto rounded-lg') %>
+          <% end %>
+        </div>
+        <!-- Text Column -->
+        <div class="flex flex-col justify-top text-lime-700 leading-relaxed">
+          <p class='sm:text-lg md:text-xl lg:text-2xl font-bold'>
+            <%= @user.nom %> <%= @user.cognom1 %> i <%= @user.cognom2 %>
+          </p>
+          <p class='my-2 sm:text-base md:text-xl font-bold'>
+            <%= @user.moto_marca.upcase %> <%= @user.moto_model %>
+          </p>
+          <p class='sm:text-base md:text-xl font-bold'>
+            <%= @user.municipi %>
+          </p>
+          <p class='m-4 sm:text-xsm text-sm'>
+            Edat: <%= ((Time.zone.now.to_time - @user.data_naixement.to_time) / 1.year.seconds).floor %> anys<BR/>
+            Pla: <%= Plan.find_by(id: @user.plan_id).nom.upcase %><BR/>
+            Antiguetat: <%= ((Time.zone.now - @user.created_at) / 1.month.seconds).floor %> mesos<BR/>
+            Escalafó: <%= @user.puntuacio&.user_level || "N/A" %><br/>
+          </p>
+        </div>
+        <!-- Descripcio -->
+        <div class="col-span-2 text-white text-sm mx-2 py-4">
+          <div class='p-2 border-2 border-yellow-400 rounded-lg bg-lime-900 italic'>
+            <%= markdown(@user.presentacio) %>
+          </div>
+        </div>
+      </div>
+      <!-- ./1.1 -->
+      <!-- 1.2 -->
+      <div id="1.2" class="flex items-center justify-center h-full max-w-full rounded-lg">
+        <% if @user.foto_moto.attached? %>
+          <%= image_tag(@user.foto_moto, class:'w-full md:w-3/4 h-auto') %>
+        <% else %>
+          <%= image_tag("motorbike.jpg", class:'md:w-70 lg:80 h-auto rounded-lg') %>
+        <% end %>
+      </div>
+      <!-- ./1.2 -->
+      <!-- 1.3 -->
+      <div id="1.3" class="grid grid-rows-3 gap-4 h-full max-w-full p-4">
+        <!-- Button Row -->
+        <% if @user != current_user %>
+          <div id="btn" class="flex items-center justify-center">
+            <% if current_user.following?(@user) %>
+              <%= button_to 'Deixa de seguir', unfollow_user_path(@user), method: :delete, class: 'btn-sm' %>
+            <% else %>
+              <%= button_to 'Segueix', follow_user_path(@user), method: :post, class: 'btn-sm' %>
+            <% end %><!-- ./if following -->
+          </div>
+        <% end %><!-- ./if current_user -->
+        <!-- Followers Row -->
+        <% if @followers.any? %>
+          <div id="followers" class="mt-2">
+            <h3 class="font-semibold">Followers:</h3>
+            <% @followers.each do |follower| %>
+              <%= link_to user_path(follower) do %>
+                <% if follower.avatar.attached? %>
+                  <%= image_tag(follower.avatar, class:'inline-block w-8 h-8 rounded-full') %>
+                <% else %>
+                  <%= image_tag("web/motorista50bn.png", class: "inline-block w-8 h-8 rounded-full") %>
+                <% end %>
+                <span class="text-xs text-lime-800 mr-3"><%= follower.nom %></span>
+              <% end %><!-- ./link -->
+            <% end %><!-- ./each -->
+          </div>
+        <% end %><!-- ./if followers -->
+        <!-- Following Row -->
+        <div id="following" class="mt-2">
+          <% if @following.any? %>
+            <h3 class="font-semibold">Following:</h3>
+            <% @following.each do |followed| %>
+              <%= link_to user_path(followed) do %>
+                <% if followed.avatar.attached? %>
+                  <%= image_tag(followed.avatar, class:'inline-block w-8 h-8 rounded-full') %>
+                <% else %>
+                  <%= image_tag("web/motorista50bn.png", class: "inline-block w-8 h-8 rounded-full") %>
+                <% end %><!-- ./avatar -->
+                <span class="text-xs text-lime-800 mr-3"><%= followed.nom %></span>
+              <% end %><!-- ./link -->
+            <% end %><!-- ./each -->
+          <% end %><!-- ./if followings -->
+        </div>
+      </div>
+      <!-- ./1.3 -->
+      <!-- 1.4 -->
+      <div id="sortides" class="flex items-start justify-start h-full max-w-full bg-white p-4 border-2 border-lime-200 rounded-lg">
+        <ul class='my-2 font-bold'>Sortides realitzades:<br/>
+          <br/>
+          <% @user.inscripcios.each_with_index do |inscripcio, index| %>
+            <li class='text-xs'>
+              <%= link_to (inscripcio.sortide) do %>
+                <span class='inline-block align-middle'><%= index + 1 %>) 
+                  <%= inscripcio.sortide.start_date.strftime("%Y-%m-%d") %> <%= inscripcio.sortide.title %>
+                </span>
+              <% end %><!-- link -->
+            </li>
+          <% end %><!-- inscripcio -->
+        </ul>
+      </div>
+      <!-- ./1.4 -->
+    </div>
+  <% end %><!-- ./signed -->
+</section>

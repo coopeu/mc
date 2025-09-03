@@ -1,0 +1,56 @@
+<section id="plans" class="bg-lime-50 py-8">
+  <div class="container mx-auto px-2 pt-2 pb-12">
+    <div class="flex flex-col sm:flex-row justify-center pt-6 my-1 sm:my-1">
+      <div class="flex-1 lg:flex-initial lg:w-1/2 rounded-lg mr-2 flex flex-col">
+        <div class="text-yellow-200">
+          <div class="text-3xl bg-red-900 font-semibold text-center border border-teal-500 border-b border-solid rounded-t py-8">
+            Pla Motorista <span class="font-bold text-4xl text-yellow-300 py-8"><%= @plan.nom %></span>
+          </div>
+          <div class="bg-lime-800 w-full text-center text-2xl mt-auto text-yellow-200 border-0 border-teal-500 border-b border-solid py-8">
+            Subscripció anual de <span class="font-bold text-3xl text-yellow-300"><%= @plan.preu.to_i %> €</span>
+          </div>
+          <div class="bg-lime-800 text-center border-0 border-teal-500 border-b border-solid py-4 text-2xl py-8">
+            Accés a sections i continguts: <span class="font-bold text-2xl text-yellow-300"><%= @plan.accesWeb %></span>
+          </div>
+          <div class="bg-lime-800 text-2xl text-center border-0 border-grey-light border-b border-solid py-8">
+            <span class='text-2xl font-bold text-yellow-300'><%= @plan.maxSortidesAny %></span> sortides a l'any
+            <br/>
+            <span class='text-base'>Possibilitat de renovació immediata desprès d'exhaurir-les.</span>
+          </div>
+          <div class="bg-lime-800 text-2xl text-center border-0 border-grey-light border-b border-solid py-8">
+            Descompte mig aprox.: <span class='text-2xl font-bold text-yellow-300'><%= @plan.descompteInscripcions %> % </span> en totes les inscripcions
+          </div>
+          <div class="bg-lime-800 text-2xl text-center border-0 border-grey-light border-b border-solid py-8">
+            Descompte: <span class='text-2xl font-bold text-yellow-300'><%= @plan.descompteBotiga %> %</span> en tots els productes de la botiga
+          </div>
+          <div class="bg-lime-800 text-base text-center border-0 border-teal-500 border-b border-solid py-8">
+            <span>El preu de la subscripció s'amortitza en unes 3-4 sortides a l'any.</span>
+          </div>
+        </div>
+        <!-- ./divisions -->
+        <% if user_signed_in? %>
+          <div class="border-0 border-teal-500 border-b border-solid py-8">
+            <%= button_to "Subscriu-te ara",
+            "/subscriptions/checkout",
+            params: { plan_id: @plan[:id] },
+            method: :post,
+            class: "w-full text-center bg-red-700 text-lime-100 font-semibold px-4 py-3 rounded-xs shadow-xs border border-red-500 hover:no-underline hover:border hover:border-teal-300 hover:bg-red-800 hover:text-teal-100 hover:font-bold" %>
+            <p class='my-6 text-xs text-center text-lime-600 font-bold'>Se t'obrirà STRIPE per completar la subscripció fent el pagament.</p>
+          </div>
+          <div class="border-0 border-teal-500 border-b border-solid py-8">
+            <%= button_to "Subscriu-te ara",
+            "/subscriptions/checkout",
+            params: { plan_id: @plan[:id] },
+            method: :post,
+            class: "w-full text-center bg-red-700 text-lime-100 font-semibold px-4 py-3 rounded-xs shadow-xs border border-red-500 hover:no-underline hover:border hover:border-teal-300 hover:bg-red-800 hover:text-teal-100 hover:font-bold" %>
+            <p class='my-6 text-xs text-center text-lime-600 font-bold'>Se t'obrirà STRIPE per completar la subscripció fent el pagament.</p>
+          </div>
+        <% else %>
+          <div class='flex' style="color:white;">
+            <%= link_to "Identifica't abans de subscriure't", new_user_session_path, class: "w-full text-center bg-red-700 text-lime-100 font-semibold px-4 py-3 rounded-xs shadow-xs border border-red-500 hover:no-underline hover:border hover:border-teal-300 hover:bg-red-800 hover:text-teal-100 hover:font-bold", style:'color:white;' %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</section>

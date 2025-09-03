@@ -1,0 +1,6 @@
+<%= turbo_stream.prepend "piulades" do %>
+  <%= render "piulade", piulade: @piulade %>
+<% end %>
+<%= turbo_stream.remove Piulade.new do %>
+  <%= render "piulades/empty" %>
+<% end %>

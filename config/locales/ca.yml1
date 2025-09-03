@@ -1,0 +1,447 @@
+---
+ca:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            nom: "no pot estar en blanc"
+            cognom1: "no pot estar en blanc"
+            cognom2: "no pot estar en blanc"
+            moto_marca: "no pot estar en blanc"
+            moto_model: "no pot estar en blanc"
+            comarca: "no pot estar en blanc"
+            municipi: "no pot estar en blanc"
+            data_naixement: "no pot estar en blanc"          
+            email:
+              taken: "ja està en ús"
+              blank: "no pot estar en blanc"
+            mobil:
+              blank: "no pot estar en blanc"
+              taken: "ja està en ús"
+            password: "no pot estar en blanc"
+            password_confirmation:
+              confirmation: "no coincideix amb la contrasenya"
+            preu:
+              not_a_number: "no és un número"
+      messages:
+        record_invalid: 'La validació ha fallat: %{errors}'
+  date:
+    abbr_day_names:
+    - Dg
+    - Dl
+    - Dm
+    - Dc
+    - Dj
+    - Dv
+    - Ds
+    abbr_month_names:
+    - 
+    - Gen
+    - Feb
+    - Mar
+    - Abr
+    - Mai
+    - Jun
+    - Jul
+    - Ago
+    - Set
+    - Oct
+    - Nov
+    - Des
+    day_names:
+    - Diumenge
+    - Dilluns
+    - Dimarts
+    - Dimecres
+    - Dijous
+    - Divendres
+    - Dissabte
+    formats:
+      default: "%d-%m-%Y"
+      long: "%d de %B de %Y"
+      long_with_apostrophe: "%d d''%B de %Y"
+      short: "%d de %b"
+      superlong: '%A, %d de %B del %Y'
+      superlong_with_apostrophe: '%A, %d d''%B del %Y'
+    month_names:
+    - 
+    - Gener
+    - Febrer
+    - Març
+    - Abril
+    - Maig
+    - Juny
+    - Juliol
+    - Agost
+    - Setembre
+    - Octubre
+    - Novembre
+    - Desembre
+    order:
+    - :day
+    - :month
+    - :year
+  datetime:
+    distance_in_words:
+      about_x_hours:
+        one: aproximadament 1 hora
+        other: aproximadament %{count} hores
+      about_x_months:
+        one: aproximadament 1 mes
+        other: aproximadament %{count} mesos
+      about_x_years:
+        one: aproximadament 1 any
+        other: aproximadament %{count} anys
+      almost_x_years:
+        one: quasi 1 any
+        other: quasi %{count} anys
+      half_a_minute: mig minut
+      less_than_x_seconds:
+        one: menys d'1 segon
+        other: menys de %{count} segons
+      less_than_x_minutes:
+        one: menys d'1 minut
+        other: menys de %{count} minuts
+      over_x_years:
+        one: més d'1 any
+        other: més de %{count} anys
+      x_seconds:
+        one: 1 segon
+        other: "%{count} segons"
+      x_minutes:
+        one: 1 minut
+        other: "%{count} minuts"
+      x_days:
+        one: 1 dia
+        other: "%{count} dies"
+      x_months:
+        one: 1 mes
+        other: "%{count} mesos"
+      x_years:
+        one: 1 year
+        other: "%{count} years"
+    prompts:
+      second: segon
+      minute: minut
+      hour: hora
+      day: dia
+      month: mes
+      year: any
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: ha de ser acceptat
+      blank: no pot estar en blanc
+      confirmation: no coincideix
+      empty: no pot estar buit
+      equal_to: ha de ser igual a %{count}
+      even: ha de ser parell
+      exclusion: està reservat
+      greater_than: ha de ser més gran que %{count}
+      greater_than_or_equal_to: ha de ser més gran o igual a %{count}
+      inclusion: no està inclós a la llista
+      invalid: no és vàlid
+      less_than: ha de ser menor que %{count}
+      less_than_or_equal_to: ha de ser menor o igual a %{count}
+      not_a_number: no és un número
+      not_an_integer: ha de ser un enter
+      odd: ha de ser senar
+      taken: no està disponible
+      too_long: és massa llarg (%{count} caràcters màxim)
+      too_short: és massa curt (%{count} caràcters mínim)
+      wrong_length: no té la longitud correcta (%{count} caràcters exactament)
+      expired: "ha caducat, demana'n un de nou"
+      not_found: "no s'ha trobat"
+      already_confirmed: "ja està confirmat"
+      not_locked: "no està bloquejat"
+      not_saved:
+        one: "1 error ha evitat que %{resource} es pugui desar:"
+        other: "%{count} errors han evitat que %{resource} es pugui desar:"
+      inclusion: "no està inclòs a la llista"
+    template:
+      body: 'Hi ha hagut problemes amb els següents camps:'
+      header:
+        one: No s'ha pogut desar aquest/a %{model} perquè hi ha 1 error
+        other: No s'ha pogut desar aquest/a %{model} perquè hi ha hagut %{count} errors
+    attributes:
+      nom: No pot estar en blanc
+      cognom1: No pot estar en blanc
+      cognom2: No pot estar en blanc
+      moto_marca: No pot estar en blanc
+      moto_model: No pot estar en blanc
+      comarca: No pot estar en blanc
+      municipi: No pot estar en blanc
+      email: No pot estar en blanc
+      mobil: No pot estar en blanc
+      password:
+        blank: no pot estar en blanc
+      password_confirmation:
+        blank: no pot estar en blanc
+        confirmation: no coincideix amb la contrasenya          
+  helpers:
+    select:
+      prompt: Si us plau tria
+    submit:
+      create: Crear %{model}
+      submit: Guardar %{model}
+      update: Actualitzar %{model}
+  number:
+    currency:
+      format:
+        delimiter: "."
+        format: "%n %u"
+        precision: 2
+        separator: ","
+        significant: false
+        strip_insignificant_zeros: false
+        unit: "€"
+    nth:
+      ordinalized: "%{number}è"
+    format:
+      delimiter: "."
+      precision: 3
+      separator: ","
+      significant: false
+      strip_insignificant_zeros: false
+    human:
+      decimal_units:
+        format: "%n %u"
+        units:
+          billion: mil milions
+          million: milió
+          quadrillion: quadrilió
+          thousand: mil
+          trillion: trilió
+          unit: ''
+      format:
+        delimiter: ''
+        precision: 1
+        significant: true
+        strip_insignificant_zeros: true
+      storage_units:
+        format: "%n %u"
+        units:
+          byte:
+            one: Byte
+            other: Bytes
+          gb: GB
+          kb: KB
+          mb: MB
+          tb: TB
+    percentage:
+      format:
+        delimiter: ''
+    precision:
+      format:
+        delimiter: ''
+  support:
+    array:
+      last_word_connector: ", i "
+      two_words_connector: " i "
+      words_connector: ", "
+  time:
+    am: am
+    formats:
+      default: "%A, %d de %B de %Y %H:%M:%S %z"
+      long: "%d de %B de %Y %H:%M"
+      short: "%d de %b %H:%M"
+    pm: pm
+  activerecord:
+    attributes:
+      user:
+        confirmation_sent_at: S'ha enviat la confirmació a
+        confirmation_token: Token de confirmació
+        confirmed_at: Confirmat a les
+        created_at: Creat a les
+        current_password: Contrasenya actual
+        current_sign_in_at: Inici de sessió actual a les
+        current_sign_in_ip: Sessió actual amb la IP
+        email: Adreça electrònica
+        encrypted_password: Contrasenya xifrada
+        failed_attempts: Intents fallits
+        last_sign_in_at: Darrere inici de sessió a les
+        last_sign_in_ip: Última IP
+        locked_at: Bloquejat a les
+        password: Contrasenya
+        password_confirmation: Confirmar contrasenya
+        remember_created_at: Recorda'm creat a les
+        remember_me: Recorda'm
+        reset_password_sent_at: Restabliment de contrasenya enviat a les
+        reset_password_token: Restabliment de token de la contrasenya
+        sign_in_count: Nombre d'inicis de sessió
+        unconfirmed_email: Correu electrònic no confirmat
+        unlock_token: Desbloquejar el token
+        updated_at: Actualitzat a les
+    simple_form:
+      required:
+      text: 'required'
+      mark: '*'
+    models:
+      user: Usuari
+      email: "adreça electònica"
+    errors:
+      models:
+        sortide:
+          attributes:
+            oberta:
+              inclusion: "no està inclòs a la llista"
+            descripcio:
+              blank: "no pot estar en blanc"
+        user:
+          attributes:
+            nom:
+              too_short: "massa curt"
+            cognom1:
+              too_short: "massa curt"
+            cognom2:
+              too_short: "massa curt"
+            marca_moto:
+              too_short: "massa curt"
+            model_moto:
+              too_short: "massa curt"
+            comarca:
+              too_short: "massa curt"
+            municipi:
+              too_short: "massa curt"
+            password:
+              too_short: "massa curt"                
+  devise:
+    confirmations:
+      confirmed: La vostra adreça electrònica ha estat confirmada correctament.
+      new:
+        resend_confirmation_instructions: Reenviar instruccions de confirmació
+      send_instructions: En breu rebràs un correu electrònic amb instruccions sobre com confirmar el teu compte.
+      send_paranoid_instructions: Si la teva adreça electrònica existeix a la base de dades, rebràs un correu electrònic amb instruccions sobre com confirmar el teu compte.
+    failure:
+      already_authenticated: Ja estàs identificat.
+      inactive: El teu compte encara no ha estat activat.
+      invalid: "%{authentication_keys} o contrasenya invàlida."
+      last_attempt: Disposa d'un intent més abans de que li bloquegem el compte.
+      locked: El teu compte està bloquejat.
+      not_found_in_database: "%{authentication_keys} o contrasenya invàlida."
+      timeout: La teva sessió ha caducat. Si us plau, torna a iniciar sessió per a continuar.
+      unauthenticated: Has d'iniciar sessió o bé registrar-te abans de continuar.
+      unconfirmed: Has de confirmar el teu compte abans de continuar.
+    mailer:
+      confirmation_instructions:
+        action: Confirmar el meu compte
+        greeting: Benvingut %{recipient}!
+        instruction: 'Pots confirmar el correu electrònic del teu compte a través d''aquest enllaç:'
+        subject: Instruccions de confirmació
+      email_changed:
+        greeting: Hola %{recipient}!
+        message: Et contactem per avisar-vos que el vostre correu electrònic s'ha modificat a %{email}.
+        subject: S'ha canviat el correu electrònic
+      password_change:
+        greeting: Hola, %{recipient}!
+        message: Us hem contactat per notificar-vos que s'ha modificat la vostra contrasenya.
+        subject: Contrasenya modificada
+      reset_password_instructions:
+        action: Canviar la meva contrasenya
+        greeting: Hola %{recipient}!
+        instruction: Algú ha sol·licitat un enllaç per a canviar la teva contrasenya, pots fer-ho amb el següent enllaç.
+        instruction_2: Si tu no ho has sol·licitat, si us plau ignora aquest email.
+        instruction_3: La teva contrasenya no serà canviada fins que accedeixis a l'enllaç i en creïs una nova.
+        subject: Instruccions de regeneració de contrasenya
+      unlock_instructions:
+        action: Desbloquejar el meu compte
+        greeting: Hola %{recipient}!
+        instruction: 'Obre el següent enllaç per a desbloquejar el teu compte:'
+        message: El teu compte s'ha bloquejat a causa d'una quantitat excessiva d'intents fallits per a accedir-hi.
+        subject: Instruccions de desbloqueig
+    omniauth_callbacks:
+      failure: No hem pogut autoritzar el compte des de %{kind} perquè "%{reason}".
+      success: Autoritzat satisfactoriament el compte des de %{kind}.
+    passwords:
+      edit:
+        change_my_password: Canviar la meva contrasenya
+        change_your_password: Canviar la teva contrasenya
+        confirm_new_password: Confirmar nova contrasenya
+        new_password: Nova contrasenya
+      new:
+        forgot_your_password: Has oblidat la teva contrasenya?
+        send_me_reset_password_instructions: Enviar les instruccions per a regenerar la meva contrasenya
+      no_token: Només pots accedir a aquesta pàgina des d'un correu electrònic de recuperació de la contrasenya. Si realment has fet servir l'enllaç del correu electrònic, comprova que has utilitzat la URL completa.
+      send_instructions: En breu rebràs un correu electrònic amb instruccions sobre com restablir la teva contrasenya.
+      send_paranoid_instructions: Si la teva adreça electrònica existeix a la base de dades, rebràs un correu electrònic amb un enllaç per reestablir la contrasenya.
+      updated: La teva contrasenya ha estat canviada correctament. S'ha iniciat la sessió.
+      updated_not_active: La teva contrasenya ha estat canviada correctament.
+    registrations:
+      user:
+        signed_up_but_not_approved: T'has registrat bé però encara no ha sigut valiidat per l'administrador. 
+      failure:
+        not_approved: El teu compte no ha sigut validat per l'administrador.
+      destroyed: Adéu! El teu compte ha estat cancel·lat correctament. Esperem tornar-te a veure!
+      edit:
+        are_you_sure: Estàs segur?
+        cancel_my_account: Cancel·lar el meu compte
+        currently_waiting_confirmation_for_email: 'Esperant confirmació de: %{email}'
+        leave_blank_if_you_don_t_want_to_change_it: deixa'l en blanc si no el vols canviar
+        title: Editar %{resource}
+        unhappy: Descontent
+        update: Actualitzar
+        we_need_your_current_password_to_confirm_your_changes: necessitem la teva contrasenya actual per a confirmar els canvis
+      new:
+        sign_up: Registrar-se
+      signed_up: Has estat registrat correctament.
+      signed_up_but_inactive: El teu compte ha estat creat correctament. Tanmateix, no hem pogut inciar la sessió perquè el teu compte encara no està activat.
+      signed_up_but_locked: El teu compte ha estat creat correctament. Tanmateix, no hem pogut inciar la sessió perquè el teu compte està bloquejat.
+      signed_up_but_unconfirmed: S'ha enviat un missatge amb un enllaç de confirmació al teu correu electrònic. Obre l'enllaç per activar el teu compte.
+      update_needs_confirmation: Has actualitzat el teu compte correctament, però cal confirmar el teu nou correu electrònic. Si us plau, comprova el teu correu i segueix l'enllaç de confirmació per finalitzar la comprovació del nou correu eletrònic.
+      updated: Has actualitzat el teu compte correctament.
+      updated_but_not_signed_in:
+    sessions:
+      already_signed_out: Desconnectat satisfactoriament.
+      new:
+        sign_in: Iniciar sessió
+      signed_in: Sessió iniciada correctament.
+      signed_out: Sessió tancada correctament.
+    shared:
+      links:
+        back: Tornar
+        didn_t_receive_confirmation_instructions: No has rebut les instruccions de confirmació?
+        didn_t_receive_unlock_instructions: No has rebut les instruccions de desbloqueig?
+        forgot_your_password: Has oblidat la teva contrasenya?
+        sign_in: Iniciar sessió
+        sign_in_with_provider: Iniciar sessió amb %{provider}
+        sign_up: Registrar-se
+      minimum_password_length:
+        one: "(mínim %{count} caràcter)"
+        other: "(mínim de %{count} caràcters)"
+    unlocks:
+      new:
+        resend_unlock_instructions: Reenviar instruccions de desbloqueig
+      send_instructions: En breu rebràs un correu electrònic amb instruccions sobre com desbloquejar el teu compte.
+      send_paranoid_instructions: Si el teu compte existeix, rebràs un correu electrònic amb instruccions sobre com desbloquejar-lo.
+      unlocked: El teu compte ha estat desbloquejat correctament. S'ha iniciat la sessió.
+  errors:
+    messages:
+      already_confirmed: ja està confirmat
+      confirmation_period_expired: necessita ser confirmat en %{period}, si us plau demana'n un de nou
+      expired: ha caducat, si us plau demana'n un de nou
+      not_found: no s'ha trobat
+      not_locked: no està bloquejat
+      not_saved:
+        one: '1 error ha evitat que %{resource} es pugui desar:'
+        other: "%{count} errors han evitat que %{resource} es pugui desar:"
+      taken: "ja està en ús"
+      blank: "no pot estar en blanc"
+      invalid: "no és vàlid"
+      too_short: "massa curt"
+      confirmation: "no coincideix amb la contrasenya"
+      minimum_password_length:
+        one: "(mínim %{count} caràcter)"
+        other: "(mínim de %{count} caràcters)"
+      municipi:
+        blank: "no pot estar en blanc"
+        too_short: "nom massa curt"
+      descripcio:
+        too_long: "text massa llarg >5000"
+      email:
+        invalid_format: "format no vàlid"
+        already_exists: "ja existeix"
+  helpers:
+    label:
+      user:
+        email: Correu electrònic

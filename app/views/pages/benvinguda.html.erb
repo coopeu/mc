@@ -1,0 +1,19 @@
+<div class="w-full min-h-[100vh] flex items-center justify-center" style="background-image: url(<%= asset_path('PatxiBorreda1000.jpg') %>); background-size: cover; background-position: center;">
+  <div class="flex flex-col w-full rounded-xs shadow-lg sm:w-5/6 md:w-4/5 lg:w-3/4 xl:w-2/3">
+    <div class="flex flex-col w-full md:flex-row">
+      <div class="flex flex-row justify-around p-4 font-bold leading-none text-teal-100 uppercase bg-teal-500 rounded-xs md:flex-col md:items-center md:justify-center sm:w-1/3 md:w-1/4">
+      <div class="sm:text-base md:text-2xl"><%= Time.now.strftime("%d/%m/%Y %H:%M") %></div>
+      </div>
+      <div class="p-4 font-normal text-teal-800 sm:w-5/6 md:w-4/5 lg:w-3/4 xl:w-2/3 bg-teal-100">
+        <h1 class="mb-4 sm:text-xl md:text-xl lg:text-2xl font-semibold leading-none tracking-tight text-teal-800">
+          Gràcies <b><i><%= params[:nom] %> <%= params[:moto_model] %> <%= params[:municipi] %></b></i> per registrar-te!</h1>
+        <p class="mb-4 my-6 sm:text-lg md:text-xl leading-none tracking-tight italic">
+          Ben aviat rebràs un correu electrònic de confirmació i et serà validat el teu compte.
+        </p>
+        <div class="flex flex-row justify-end items-center mt-4 font-bold text-teal-700 gap-4 sm:text-sm md:text-base">            <span>Motos.cat La Plataforma de sortides en moto del Grup motorista 'Mil Revolts'</span>
+          <%= image_tag("MCMRC400.png", class: "ml-4 w-32") %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

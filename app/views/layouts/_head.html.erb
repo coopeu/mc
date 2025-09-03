@@ -1,0 +1,27 @@
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>Motos.cat Sortides en moto per Catalunya. Motorcycle rides and riders</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Grup motorista Mil Revolts sortides en moto en grup per Catalunya des de Barcelona">
+<meta name="keywords" content="motos, sortides, motorista, motocicleta, rides, riders, Catalunya, Barcelona">
+<link rel="canonical" href="https://motos.cat/sortides">
+<meta property="og:title" content="Motos.cat Sortides en moto per Catalunya. Motorcycle rides and riders">
+<meta property="og:description" content="Grup motorista Mil Revolts sortides en moto en grup per Catalunya des de Barcelona">
+<meta property="og:image" content="<%= asset_url('MOTOS32.png') %>">
+<meta property="og:url" content="https://milrevolts.cat/">
+<%= csrf_meta_tags %>
+<%= csp_meta_tag %>
+<meta name="stripe-pk" content="<%= stripe_publishable_key %>">
+<%= favicon_link_tag 'MOTOS32.ico' %>
+<%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+<%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
+<%= stylesheet_link_tag "trix" %>
+<%= stylesheet_link_tag "actiontext" %>
+<%= javascript_importmap_tags %>
+<%= javascript_include_tag "trix" %>
+<%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.6.0/gsap.min.js" crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,700" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+<script src="https://unpkg.com/flowbite@1.4.0/dist/flowbite.js"></script>
+<script src="https://js.stripe.com/v3/"></script>

@@ -1,0 +1,31 @@
+<section class="container mx-auto py-6 mb-12">
+  <BR/>
+  <h1 class="w-full my-2 pt-6 text-3xl font-bold leading-tight text-center text-white">  
+  Vols estar només ben informat
+  </h1>
+  <div class="w-full mb-4"> 
+    <div class="h-1 mx-auto bg-white w-1/6 opacity-25 my-0 py-0 rounded-t"></div>
+  <h3 class="my-4 text-xl leading-tight m-12">Noticiari mensual de les nostres activitats, que reberàs per correu electrònic mensualment i a on trobaràs el calendari de sortides i trobades obertes a on podràs inscriure't i participar!</h3>
+  </div>  
+  <div class="w-full mb-4 flex flex-col items-center">
+    <div class="m-4 flex">
+  <%= form_for @subscriptor do |f| %>
+    <%= f.text_field :nom, placeholder:'Nom', class:"rounded-l-lg p-3 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white object-center" %>
+    <%= f.email_field :email, class:"p-3 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white object-center", placeholder:"el.teu@mail.cat" %>
+    <%#= f.select :font, ['Buscadors', 'Xarxes Socials', 'Boca oido', 'Altres'], class:"form-select mt-1 block w-ful", prompt:"A on ens has sentit? " %>
+    <%= f.submit 'Subscriu-te', class:"p-3 px-8 ml-0 rounded-r-lg bg-teal-400 text-teal-800 font-bold uppercase border-gray-300 border-t border-b border-r text-center" %>
+  <% end %>
+    </div>
+  </div>
+</section>
+
+
+
+
+<!--
+  p-4 border-t mr-0 border-b border-l text-gray-800 border-gray-200 bg-white object-center
+
+  block appearance-none w-full text-teal-500 bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-hidden focus:bg-teal-500 focus:border-gray-500
+
+l
+-->

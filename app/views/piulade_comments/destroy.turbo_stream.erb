@@ -1,0 +1,4 @@
+<%= turbo_stream.remove(@piulade_comment) %>
+<%= turbo_stream.replace "#{dom_id(@piulade)}_piulade_comments_count" do %>
+  <%= render "piulades/piulade_comments_count", piulade: @piulade %>
+<% end %>

@@ -1,0 +1,49 @@
+<div class='p-9 text-teal-700 bg-teal-100'>
+
+<h1 class="p-6 mb-6 text-white" style='font-size:24pt; text-shadow: 1px 1px 1px #d2d2d2, 2px 2px 2px #000000;'><%= @users.where(plan_id > 0).count %> Motoristes socis del Club:&nbsp;</h1>
+
+<% i=1 %>
+<div class='flex flex-wrap m-6'>
+<div class="w-1/2">
+
+<% for user in @users %>
+<!--,:order=>'sortides'DESC%>-->
+<% if !user.baixa? %>
+<% if user.approved %>
+
+<% if user.avatar.attached? %>
+&nbsp;<%= image_tag user.avatar, style:'width:50px; height:50px;float:left;' %>&nbsp;
+<% else %>
+&nbsp;<%= image_tag "web/motorista50bn.png", style:'width:50px; height:50px; float:left;' %> &nbsp;
+<% end %>
+   
+<%= link_to user.nom, user_path(user), class:'text-xl text-teal-600 font-bold' %>
+    <BR/><span class='m-3'><%= user.moto.upcase %></span>
+        <span class='m-1 italic'><%= user.localitat %></span>
+    <%#= user.data_naixement %>
+    <%# if user.data_naixement? %>
+    <%#= ((Time.zone.now - user.data_naixement.to_time) / 1.year.seconds).floor %>
+    <%# end %>
+    <BR/>
+    <BR/>
+    <% else %>
+    <% if current_user && current_user.id == 1 %>
+<p>ADMIN Has d'approvar aquest compte.</p>-->
+    <h6 class='ui teal' style='text-indent:1em;'><i><%= user.approved %></i></h6>
+    <% end %><!-- admin -->
+
+<% end %><!-- APPROVED? -->
+<% end %><!-- BAIXA? -->
+<% i=i+1 %>
+<% if i > @users.count/2 %> 
+</div><div class="w-1/2">
+<% i=1 %>    
+<% end %><!-- if -->
+
+<% end %><!-- USERS -->
+
+</div><!-- ./w-1/2 -->
+
+</div><!-- GRID -->
+</div><!-- p-3 -->
+

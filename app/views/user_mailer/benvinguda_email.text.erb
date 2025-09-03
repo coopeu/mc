@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Benvingut a MilRevolts.cat</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+    }
+    .container {
+      width: 80%;
+      margin: 0 auto;
+      padding: 20px;
+      background-color: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    .header {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9em;
+      color: #666;
+    }
+  </style>
+</head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h2>Benvingut a Motos.cat la plataforma de sortides en moto per Catalunya</h2>
+      </div>
+      <p>Ens complau  <%= @user.nom %>  <%= @user.moto_marca %> <%= @user.moto_model %> <%= @user.municipi %> donar-te la benvinguda al lloc web Motos.cat Sortides en Moto del grup motorista "Mil Revolts".</p>
+      <p>Ben aviat t'aprovarem el compte i ja podràs inscriure't i organitzar les teves pròpies sortides en moto, així com subscriure't a tots els nostres serveis.</p>
+      <p>Si-us-plau, puja una foto teva i una de la teva moto al teu perfil!</p>
+      <p>Gràcies per ser un altre motorista per sortir en moto!</p>
+      <div class="footer">
+        <p>&copy; <%= Time.now.year %> MilRevolts.cat. Tots els drets reservats.</p>
+      </div>
+    </div>
+  </body>
+</html>

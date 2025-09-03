@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Nova inscripció</h1>
+    <p>Hola,</p>
+    <p>Un nou usuari s'ha inscrit a la sortida.</p>
+    <p><strong>Usuari:</strong> <%= @user.nom %></p>
+    <p><strong>Perfil de l'usuari:</strong> <a href="<%= @user_profile_link %>"><%= @user.slug %></a></p>
+    <p><strong>Sortida:</strong> <%= @sortide.title %></p>
+    <p><strong>Enllaç a la sortida:</strong> <a href="<%= @url %>"><%= @url %></a></p>
+    <p>Gràcies,</p>
+    <p>L'equip de Motos.cat</p>
+  </body>
+</html>

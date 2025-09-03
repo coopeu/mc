@@ -1,0 +1,145 @@
+<div class="mx-auto md:w-2/3 w-full mb-6">
+  <h1 class="font-bold text-4xl text-lime-600 py-2 mt-4 text-center">Editant sortida</h1>
+  <%= form_with(model: @sortide, class: "contents text-sm") do |form| %>
+    <% if @sortide.errors.any? %>
+      <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+        <h2><%= pluralize(@sortide.errors.count, "error") %> prohibited this sortide from being saved:</h2>
+        <ul>
+          <% @sortide.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="my-5 p-4 border border-lime-600 rounded-md">
+      <div class="flex space-x-4">
+        <div class="flex-1">
+          <%= form.label :Data %>
+          <%= form.date_field :start_date, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+        </div>
+        <div class="flex-1">
+          <%= form.label :Hora %>
+          <%= form.time_field :start_time, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full", step: 60, value: @sortide.start_time.strftime("%H:%M") %>
+        </div>
+      </div>
+      <div class="mt-4">
+        <%= form.label :Punt_trobada %>
+        <%= form.text_field :start_point, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+      </div>
+    </div>
+    <div class="my-5">
+      <%= form.label :Títol %>
+      <%= form.text_field :title, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+    </div>
+    <% if @sortide.start_date < Date.today %>
+      <div class="my-4">
+        <%= form.label :enllaç_video_reportatge_youtube %>:
+        <%= form.text_field :youtube %>
+      </div>
+    <% end %>
+    <div class="my-5">
+      <%= form.label :Descripció %>
+      <%= form.rich_text_area :descripcio, rows: 6, data: { controller: "trix" }, class: "bg-white block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+    </div>
+    <!--<div class="flex justify-center space-x-4 border border-lime-600 rounded-md p-4"></div>-->
+    <div id="sortidaclasse" class="flex flex-col space-y-1 p-4 border border-lime-600 rounded-md my-5 text-xs">
+      <% @sortideclasses.each do |classe| %>
+        <%= form.fields_for :sortideclass do |sortideclass_form| %>
+          <div class="flex-1">
+            <%= sortideclass_form.label :category_id %>: <span class='text-sm bg-lime-50 text-lime-800 text-sm font-semibold mr-2 px-2 py-0.5 rounded-xs'>
+              <%= classe.category.name %></span>
+            <%= sortideclass_form.collection_select :category_id, Category.all, :id, :name %>
+          </div>
+          <div class="flex-1">
+            <%= sortideclass_form.label :tipu_id %>: <span class='text-sm bg-lime-50 text-lime-800 text-sm font-semibold mr-2 px-2 py-0.5 rounded-xs'>
+              <%= classe.tipu.name %></span>
+            <%= sortideclass_form.collection_select :tipu_id, Tipu.all, :id, :name %>
+          </div>
+          <div class="flex-1">
+            <%= sortideclass_form.label :ritme_id %>: <span class='text-sm bg-lime-50 text-lime-800 text-sm font-semibold mr-2 px-2 py-0.5 rounded-xs'>
+              <%= classe.ritme.name %></span>
+            <%= sortideclass_form.collection_select :ritme_id, Ritme.all, :id, :name %>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+    <!-- ruta -->
+    <div id="ruta" class="flex flex-wrap justify-center space-x-4 border border-lime-600 rounded-md p-4 my-2 mx-auto text-sm w-full md:w-2/3 lg:w-1/2">
+  <div class="w-full">
+    <div class="my-5">
+      <%= form.label :ruta_foto, class: "block font-semibold text-lime-600" %>
+      <% if @sortide.persisted? && @sortide.ruta_foto.attached? %>
+        <div class="my-2 flex justify-center">
+          <%= image_tag @sortide.ruta_foto, class: "w-24 h-24 rounded-md border border-gray-400" %>
+        </div>
+      <% end %>
+      <%= form.file_field :ruta_foto, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+    </div>
+    <div class="my-5">
+      <span class='mr-4 font-semibold text-lime-600'>Ruta aprox.: <%= @sortide.Km %></span>
+      <%= form.label :Km, class: "sr-only" %>
+      <%= form.select :Km, options_for_select([['1-50', 25], ['51-100', 75], ['101-150', 125], ['151-200', 175], ['201-250', 225], ['251-300', 275], ['301-350', 325], ['351-400', 375], ['401-450', 425], ['451-500', 475], ['501-600', 550], ['601-1000', 800], ['1001-1500', 1250], ['1501-2000', 1750], ['2001-2500', 2250], ['2501-3000', 2750], ['+3001', 3250]], @sortide.Km), class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+    </div>
+    <!-- GPX -->
+    <div class="my-5">
+      <%= form.label :ruta_gpx, class: "block font-semibold text-lime-600" %>
+      <% if @sortide.persisted? && @sortide.ruta_gpx.attached? %>
+        <div class="my-2 flex justify-center">
+          <%= link_to "Download GPX", rails_blob_path(@sortide.ruta_gpx, disposition: "attachment"), class: "btn-sm inline-flex text-blue-500" %>
+        </div>
+      <% end %>
+      <%= form.file_field :ruta_gpx, class: "block shadow-xs rounded-md border border-lime-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+    </div>
+    <!-- ./GPX -->
+    <div class="my-5">
+      <%= form.label :Títol_curt_URL, "Títol curt (URL)", class: "block font-semibold text-lime-600" %>
+      <%= form.text_field :slug, value: @sortide.slug, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+    </div>
+  </div>
+</div>
+<!-- ./ruta -->  
+<!-- inscripcios -->  
+<div id="inscripcios" class="flex flex-wrap justify-center space-x-4 border border-lime-600 rounded-md p-4 my-2 mx-auto text-sm w-full md:w-1/2">
+  <div class="text-xs md:text-sm lg:text-base font-semibold text-lime-600">
+    <div class="my-5 w-full flex items-center px-2">
+      <%= form.label :min_inscrits, "Minim número d'inscrits", class: "mr-2" %>
+      <%= form.number_field :min_inscrits, class: "shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 w-12" %>
+    </div>
+    <div class="my-5 w-full flex items-center px-2">
+      <%= form.label :max_inscrits, "Maxim numero d'inscrits", class: "mr-2" %>
+      <%= form.number_field :max_inscrits, class: "shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 w-12" %>
+    </div>
+    <div class="my-5 w-full flex items-center px-2">
+      <%= form.label :oberta, class: "mr-2" %>
+      <%= form.check_box :oberta, class: "h-5 w-5" %>
+    </div>
+    <div class="my-5 w-full flex items-center px-2">
+      <%= form.label :preu, "Preu de l'inscripció (€):", class: "mr-2 text-sm md:text-base" %>
+      <%= form.number_field :preu, step: 2, min: 0, class: "shadow-xs rounded-md border border-gray-400 outline-hidden p-2 w-12 text-sm md:text-base" %>
+      <button type="button" class="ml-2 text-blue-500 text-sm md:text-base" onclick="togglePopup()">More Info</button>
+    </div>
+    <div class="my-5 w-full flex items-center px-2">
+      <%= form.label :num_dies, "Durada en numero de dies", class: "mr-2" %>
+      <%= form.number_field :num_dies, class: "shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 w-12" %>
+    </div>
+    <div class="my-5 w-full flex items-center px-2">
+      <%= form.label :fi_ndies, "Numero de dies abans pel tancament d'inscripcions", class: "mr-2" %>
+      <%= form.number_field :fi_ndies, class: "shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 w-12" %>
+    </div>
+  </div>
+</div>
+<!-- ./inscripcios -->
+<!-- ./inscripcios -->
+<div id="approvada" class="flex flex-wrap justify-center space-x-4 w-full items-center text-sm inline my-4 text-lime-700">
+  <% if current_user.admin? %>
+      <%= form.label :approved, "Sortida Aprovada" %>
+      <%= form.check_box :approved, class: "block mt-2 h-4 w-4" %>
+  <% end %>  
+  </div>
+  <div class="inline mb-4 flex justify-center space-x-4">
+    <%= form.submit "Actualitza", class: "rounded-lg py-2 px-3 bg-lime-700 text-white inline-block font-medium cursor-pointer" %>
+  <% end %><!-- ./form_with -->
+  <%= link_to "Sortida", @sortide, class: "btn-xs" %>
+  <%= link_to "Sortides", sortides_path, class: "btn-xs" %>
+</div>
+</div>

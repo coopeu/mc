@@ -1,0 +1,21 @@
+<%- if controller_name != 'sessions' %>
+  <%= link_to "Entra", new_session_path(resource_name), class:'text-teal-500 hover:underline hover:semibold my-2' %>
+<% end %>
+
+<%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+  <%= link_to "Nou aqui? Crea un compte ara", new_registration_path(resource_name), class:'text-teal-500 hover:underline hover:semibold my-2' %>
+<% end %>
+
+<%- if devise_mapping.recoverable? && controller_name != 'passwords' && controller_name != 'registrations' %>
+  <%= link_to "Has oblidat la clau?", new_password_path(resource_name), class:'text-teal-500 hover:underline hover:semibold my-2', data: { confirm: "Les instruccions per a canviar la teva clau han sigut enviades a la teva adreça de correu" } %>
+<% end %>
+
+<%- if devise_mapping.confirmable? && controller_name != 'confirmations' %>
+  <%= link_to "No has rebut les instruccions de confirmacio?", new_confirmation_path(resource_name), class:'text-teal-500 hover:underline hover:semibold' %>
+<% end %>
+
+<%- if devise_mapping.lockable? && resource_class.unlock_strategy_enabled?(:email) && controller_name != 'unlocks' %>
+  <%= link_to "No has rebut les instruccions de desbloqueig?", new_unlock_path(resource_name), class:'text-teal-500 hover:underline hover:semibold my-2', data: { confirm: "Les instruccions per a desboquejar el teu compte han sigut enviades a la teva adreça de correu" } %>
+<% end %>
+
+

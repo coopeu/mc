@@ -1,0 +1,41 @@
+<section id="piulades" class="grow container min-h-screen mx-auto px-4 w-4/5 md:w-3/4 lg:w-1/2">
+  <p class="text-lime-500 font-bold mt-4 mb-2">Edita la Piulada</p>
+  <%= form_with(model: @piulade, local: true) do |form| %>
+    <% if @piulade.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@piulade.errors.count, "error") %> prohibited this piulade from being saved:</h2>
+        <ul>
+          <% @piulade.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <div class="py-0">
+      <%= form.text_area :body, class: "border-b border-t-0 border-x-0 mb-6 px-6 pt-6 block w-full border-teal-200 focus:shadow-none focus:outline-hidden focus:ring-transparent focus:border-teal-300 resize-none min-h-[240px] text-lg" %>
+    </div>
+     <div class="flex items-center py-2 space-x-4">
+      <% if @piulade.files.attached? %>
+        <div>
+          <p class="text-sm font-semibold text-teal-500">Fitxers actuals:</p>
+          <ul>
+            <% @piulade.files.each do |file| %>
+              <li class="flex items-center space-x-2">
+                <%= link_to file.filename.to_s, rails_blob_path(file, disposition: 'attachment'), class: "text-sm font-bold text-teal-500 hover:underline" %>
+                <%#= link_to 'Elimina', remove_file_piulade_path(@piulade, file_id: file.id), method: :delete, data: { confirm: 'Segur?' }, class: "text-sm font-semibold text-red-500 hover:underline" %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <div>
+        <%= form.label :files, "Puja fitxers", class:"text-sm font-semibold text-teal-500" %>
+        <%= form.file_field :files, multiple: true, class: "block w-full text-sm text-teal-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-teal-50 file:text-teal-700 hover:file:bg-teal-100" %>
+      </div>
+    </div>
+    <div class="actions flex justify-between items-center my-4">
+      <%= link_to '← Torna', piulades_path, class: "btn-xs text-left" %>
+      <%= form.submit "Canvia", class: "btn-sm mx-auto" %>
+    </div>
+  <% end %>
+</section>

@@ -1,0 +1,71 @@
+<div class='w-full text-lime-700 px-2 py-4 min-h-screen' style="background: #ffffcc url('<%= asset_path('frontal_2024.png') %>') no-repeat center center fixed; background-size: cover;">
+  <div class="w-full flex justify-center">
+  <h1 class="font-broken px-1 pt-10 text-greenlogo text-3xl font-bold text-center bg-yellow-200/10 p-4 rounded-lg inline-block mx-auto" style='text-shadow: 1px 1px 2px #4c0519, -1px -1px 2px #4c0519, 1px -1px 2px #4c0519, -1px 1px 2px #4c0519;'>
+    <%= image_tag "helmet.png", size: "45x45", class: "inline-block" %>
+    <%= @users.count %> Motoristes:
+  </h1>
+  </div>
+  <% if current_user %>
+    <div class="flex items-center justify-center py-4 md:py-8 flex-wrap gap-2">
+      <%= form_with url: search_users_path, method: :get, local: true, class: "flex space-x-4" do %>
+        <div class="flex items-center space-x-4">
+          <label for="provincia_id" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Provincia</label>
+          <%= select_tag :provincia_id, options_for_select(User.distinct.pluck(:provincia).compact, params[:provincia_id]), prompt: "Totes provincies", class: "shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-hidden focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" %>
+          <label for="comarca_id" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Comarca</label>
+          <%= select_tag :comarca_id, options_for_select(User.distinct.pluck(:comarca).compact, params[:comarca_id]), prompt: "Totes comarques", class: "shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-hidden focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" %>
+          <label for="municipi_id" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Municipi</label>
+          <%= select_tag :municipi_id, options_for_select(User.distinct.pluck(:municipi).compact, params[:municipi_id]), prompt: "Tots municipis", class: "shrink-0 z-10 inline-flex items-center py-2.5 px-4 text-sm font-medium text-center text-gray-900 bg-gray-100 border border-gray-300 rounded-s-lg hover:bg-gray-200 focus:ring-4 focus:outline-hidden focus:ring-gray-100 dark:bg-gray-700 dark:hover:bg-gray-600 dark:focus:ring-gray-700 dark:text-white dark:border-gray-600" %>
+          <%= submit_tag "Filtre", class: "shrink-0 z-10 inline-flex items-center ml-2 py-2.5 px-4 text-sm font-medium text-center text-white bg-teal-800 border border-teal-800 rounded-lg hover:bg-teal-700 focus:ring-4 focus:outline-hidden focus:ring-teal-100 dark:bg-teal-700 dark:hover:bg-teal-600 dark:focus:ring-teal-700" %>
+        </div>
+      <% end %><!-- .form -->
+    </div>
+  <% end %><!-- .user? -->
+  <div class='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 m-6 pt-4'>
+    <% @users.each do |user| %>
+      <% if !user.baixa? && user.approved %>
+        <div class="bg-white p-3 rounded-xs shadow-xs border border-lime-500 mx-3 my-2">
+          <% if user.avatar.attached? %>
+            <%= link_to user_path(user) do %>
+              <%= image_tag user.avatar, style: "wdth:70px;height:70px;float:left;", class: "mr-1 inline-block" %>
+            <% end %>
+          <% else %>
+            <%= image_tag "web/motorista50bn.png", style: "width:50px;height:50px;float:left;", class: "px-1 mr-2" %>
+          <% end %><!-- .avatar -->
+          <% if user.foto_moto.attached? %>
+            <%= link_to user_path(user) do %>
+              <%= image_tag user.foto_moto, style: "width:70px;height:70px;float:right;display:flex;align-items:center;justify-content:center;", class: "ml-1 inline-block" %>
+            <% end %>
+          <% else %>
+            <%= image_tag "web/motocicleta.png", style: "width:50px;height:50px;float:right;display:flex;align-items:top;", class: "px-1 mr-1 inline-block" %>
+          <% end %><!-- .avatar -->
+          <p class='text-sm text-teal-600 font-bold'>
+            <%= link_to user_path(user) do %>
+              <%= user.nom %>
+              <%= user.moto_model %>
+              <%= user.municipi %>
+            <% end %>
+          </p>
+          <p class='text-sm ml-3 my-1 text-teal-500 font-semibold'>
+            <!-- <span class='text-xs mr-2'>Motorista <%#= Plan.find_by(id: user.plan_id).nom.upcase %></span> -->
+            <span class='text-2xs mr-2'>Antiguetat: 
+              <%= ((Time.zone.now - user.created_at) / 1.month.seconds).floor %> mesos
+            </span>
+            <BR/>
+            <span class='text-xs mr-2'>Nivell: <%#= user.puntuacio&.escalafo || "N/A" %> 
+              <%= user.puntuacio&.user_level || "N/A" %> </span>
+            <span class='text-xs'>Núm.Sortides: <%= user.inscripcios.each.count %></span>
+            <BR/>
+            <span class='text-2xs mr-2'>Followers: <%= user.followers.count %></span>
+            <span class='text-2xs'>Following: <%= user.following.count %></span>
+          </p>
+        </div>
+      <% else %>
+        <% if current_user && current_user.id == 1 %>
+          <p><%= link_to user.nom, user_path(user), class: "text-xl text-teal-600 font-bold" %>
+            <%= link_to "ADMIN", edit_user_registration_path(user), class: "text-sm underline" %>
+          </p>
+        <% end %><!-- .admin -->
+      <% end %><!-- .approved -- .baixa -->
+    <% end %><!-- .users -->
+  </div>
+</div>

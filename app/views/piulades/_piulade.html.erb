@@ -1,0 +1,19 @@
+<div class="px-6 py-3 border-b" id="<%= dom_id(piulade) %>">
+  <div class="flex space-x-3 items-start">
+    <div class="shrink-0">
+      <%= render_user_avatar(current_user) %>
+    </div>
+    <div class="flex-1">
+      <p class="text-xs font-bold text-lime-600"><%= link_to piulade.user.slug, user_path(piulade.user), class: "hover:underline", data: {turbo: false} %></p>
+      <%= link_to piulade, data: {turbo: false} do %>
+        <div class="my-2 prose prose-lg"><%= piulade.body %></div>
+    <div class="my-2">
+      <% piulade.files.each do |file| %>
+        <%= link_to file.filename.to_s, rails_blob_path(file, disposition: 'attachment'), class: "block text-sm font-semibold text-teal-500 hover:underline" %>
+      <% end %>
+    </div>
+      <% end %>
+      <%= render "piulades/controls", piulade: piulade %>
+    </div>
+  </div>
+</div>

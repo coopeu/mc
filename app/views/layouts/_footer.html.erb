@@ -1,0 +1,122 @@
+<!-- Footer area -->
+<footer class="max-w bg-lime-100 pt-6 w-full bottom-0 border-t border-gray-200 border-4">
+  <div class="container mx-auto pt-4 w-full">
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 py-6 text-xsm text-teal-800">
+      <div class="mb-6 mt-3 pl-4">
+        <a href="/">
+          <%= image_tag("MOTOSCATSEMLOGOMRC240.png", alt: "Motos.cat Sortides en Moto Grup motorista 'Mil Revolts'", class:'w-20 md:w-40') %>
+        </a>
+      </div>
+      <div class="pl-4">
+        <p class="uppercase text-teal-500 mb-6 font-bold"><i class='fas fa-sitemap mr-2'></i>Seccions</p>
+        <ul class="list-reset mb-6">
+          <li class="mt-2">
+            <%= link_to 'Sortides a fer', '/sortides', class: 'no-underline hover:underline text-gray-600 hover:text-lime-800' %>
+          </li>
+          <li class="mt-2">
+            <%= link_to 'Sortides fetes', sortides_fetes_path, class: 'no-underline hover:underline text-gray-600 hover:text-lime-800' %>
+          </li>
+          <li class="mt-2">
+            <%= link_to 'Motoristes', '/users', class: 'no-underline hover:underline text-gray-600 hover:text-lime-800' %>
+          </li>
+          <li class="mt-2">
+            <%= link_to 'Mapa de Motoristes', maps_riders_path, class: 'no-underline hover:underline text-gray-600 hover:text-lime-800' %>
+          </li>
+        </ul>
+      </div>
+      <div class="pl-4">
+        <p class="uppercase text-teal-500 mb-6 font-bold"><i class='fas fa-thumbs-up mr-2'></i>Social</p>
+        <ul class="list-reset mb-6">
+          <li class="mt-2">
+            <a class="no-underline hover:underline text-gray-600 hover:text-orange-600" title="Youtube.com MilRevolts Channel" target="_blank" href="https://www.youtube.com/channel/UCRJZD9nCc7jiMkrT8VDoS5Q">YouTube</a>
+          </li>
+          <li class="mt-2">
+            <a class="no-underline hover:underline text-gray-600 hover:text-orange-600" title="Telegram MilRevolts" target="_blank" href="https://www.instagram.com/milrevoltscat/">Instagram</a>
+          </li>
+          <li class="mt-2">
+            <a class="no-underline hover:underline text-gray-600 hover:text-orange-600" title="Telegram Mil Revolts Channel" target="_blank" href="https://t.me/milrevolts">Telegram</a>
+          </li>
+          <li class="mt-2">
+            <a class="no-underline hover:underline text-gray-600 hover:text-orange-600" title="Facebook Mil Revolts page" target="_blank" href="https://www.facebook.com/milrevolts">Facebook</a>
+          </li>
+        </ul>
+      </div>
+      <div class="pl-4">
+        <p class="uppercase text-teal-500 mb-6 font-bold"><i class='fas fa-gavel mr-2'></i>Legal</p>
+        <ul class="list-reset mb-6">
+          <li class="mt-2">
+            <a href="/termes" class="no-underline hover:underline text-gray-600 hover:text-orange-500">Termes d'ús</a>
+          </li>
+          <li class="mt-2">
+            <a href="/privacitat" class="no-underline hover:underline text-gray-600 hover:text-orange-500">Política de Privacitat</a>
+          </li>
+          <li class="mt-2">
+            <a href="/cookies" class="no-underline hover:underline text-gray-600 hover:text-orange-500">Política de Galetes</a>
+          </li>
+        </ul>
+      </div>
+      <div class="pl-4">
+        <p class="uppercase text-teal-500 mb-6 font-bold"><i class='fas fa-cube mr-2'></i>Nosaltres</p>
+        <ul class="list-reset mb-6">
+          <li class="mt-2">
+            <a href="/LaPlataforma" class="no-underline hover:underline text-gray-600 hover:text-orange-500">La Plataforma</a>
+          </li>
+          <li class="mt-2">
+            <!--<a href="/ElClub" class="no-underline hover:underline text-gray-600 hover:text-orange-500">El Club</a>-->
+            <%= link_to 'El Club', club_path, class:"no-underline hover:underline text-gray-600 hover:text-orange-500" %>
+          </li>
+          <li class="mt-2">
+            <a href="/plans" class="no-underline hover:underline text-gray-600 hover:text-orange-500">Els Plans</a>
+          </li>
+          <li class="mt-2">
+            <a href="/faq" class="no-underline hover:underline text-gray-600 hover:text-orange-500">FAQ</a>
+          </li>
+          <li class="mt-2">
+            <a href="/contacte" class="no-underline hover:underline text-gray-600 hover:text-orange-500">Contacte</a>
+          </li>
+        </ul>
+      </div>
+      <div class="pl-4">
+        <p class="uppercase text-teal-500 mb-3 font-bold"><i class="fas fa-user mr-2"></i>El teu compte</p>
+        <div class="flex items-center space-x-3">
+          <button type="button" class="flex text-sm rounded-full focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600" id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown" data-dropdown-placement="bottom">
+            <span class="sr-only">Menú d'usuari</span>
+            <% if user_signed_in? %>
+              <% if current_user.avatar.attached? %>
+                <%= image_tag(current_user.avatar, class:'inline-block w-8 h-8 rounded-full mx-2') %>
+              <% else %>
+                <%= image_tag "avatar50.png", class: "w-6 h-6 rounded-full mx-1" %>
+                <%= link_to "Upload Avatar", edit_user_registration_path(current_user), class: "btn-sm" %>
+              <% end %>
+              <!-- Dropdown menu -->
+              <div class="z-50 hidden my-2 text-sm text-teal-600 list-none bg-white divide-y divide-gray-100 rounded-lg shadow-xs dark:bg-gray-700 dark:divide-gray-600" id="user-dropdown">
+                <div class="px-3 py-1 block text-xs truncate dark:text-gray-400">
+                  <%= link_to current_user.slug, user_path(current_user) %>
+                </div>
+                <ul class="py-1" aria-labelledby="user-menu-button">
+                  <li><%= link_to 'Compte', edit_user_registration_path(current_user), class:"block px-3 py-1 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" %>
+                  </li>
+                  <li><%= link_to 'Surt', 'signout', class:"block px-3 py-1 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white" %>
+                  </li>
+                </ul>
+              </div>
+            <% else %>
+              <div class="inline-flex bg-white">
+                <%= link_to "Registre", registre_path(plan: '0'), class: "btn-xs text-lime-700" %>
+                <%= image_tag("web/motorista50bn.png", class: "inline-block w-6 h-6 mx-2") %>
+                <%= link_to "Entrada", login_path, class: "btn-xs text-lime-700" %>
+              </div>
+            <% end %>
+          </button>
+        </div>
+      </div>
+    </div>
+    <!-- ./grid -->
+    <p class='text-teal-600 object-center text-xsm text-center'>
+      <br/>
+      <small><small>Copyright (c) des de l'any 2018 al <%= Date.current.year %> Plataforma Digital Motos.cat del Grup motorista 'Mil Revolts'. MUFICATA EU-RTDI SL B-61421830
+          <br/>
+        </small></small>
+    </p>
+  </div>
+</footer>

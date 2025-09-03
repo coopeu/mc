@@ -1,0 +1,34 @@
+<%= form_tag charges_path, id:'chargeForm' do %>
+
+                    <% if flash[:error].present? %>
+                      <div id="error_explanation">
+                        <p><%= flash[:error] %></p>
+                      </div>
+                    <% end %>
+
+<div class="text-center pt-8 mb-8 mt-auto">
+<script src="https://checkout.stripe.com/checkout.js" class='stripe-button'
+    data-key="<%= stripe_publishable_key %>"
+    data-image="<%= asset_path('MilRevolts200x200.png') %>"
+    data-name="Pla Motorista <%= @plan.nom %>"
+    data-description="SUBSCRIPCIÓ ANUAL"
+    data-amount="<%= @plan.preu %>"
+    data-locale="es"
+    data-currency="eur"
+    data-label='PLA MOTORISTA <%= @plan.nom %> <%= @plan.preu/100 %> €. Subscriu-te ara!'>
+    var stripe = Stripe('<%= stripe_publishable_key %>');
+    var handler = StripeCheckout.configure({
+      key:'<%= stripe_publishable_key %>',
+      token: function(token, arg) {
+        document.getElementById("stripeToken").value = token.id;
+        document.getElementById("stripeEmail").value = token.email;
+        document.getElementById("chargeForm").submit();
+      }
+});
+</script>
+<%= hidden_field_tag 'stripeToken' %>
+<%= hidden_field_tag 'amount', @plan.preu %>
+<%= hidden_field_tag 'stripeEmail' %>
+<%= hidden_field_tag 'product_id', @plan.id %>
+<%= hidden_field_tag 'user_id', current_user.id %>
+<% end %>

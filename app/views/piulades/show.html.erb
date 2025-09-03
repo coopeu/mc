@@ -1,0 +1,59 @@
+<section id="piulada" class="grow container min-h-screen mx-auto px-4 w-4/5 md:w-3/4 lg:w-1/2">
+    <p class="text-lime-500 text-sm font-bold mt-4 mb-2">Piulada</p>
+  <div class="flex items-center">
+    <%= link_to user_path(@piulade.user), class: "flex items-center space-x-2 hover:underline" do %>
+      <%= render_user_avatar(current_user) %>
+      <span class="font-bold text-lime-600 text-xs">
+        <%= @piulade.user.slug %>
+      </span>
+    <% end %>
+    <span class="text-2xs ml-2">
+      <%= @piulade.created_at.strftime("%H:%M %d-%m-%Y") %>
+    </span>
+  </div>
+  <div class="prose prose-2xl font-semibold text-teal-900 my-3">
+    <% if @piulade.piulade_id? %>
+      <%= @piulade.piulade.body %>
+    <% else%>
+      <%= @piulade.body %>
+    <% end %>
+  </div>
+    <% if @piulade.files.attached? %>
+    <div class="my-3">
+      <% @piulade.files.each do |file| %>
+        <%= link_to file.filename.to_s, rails_blob_path(file, disposition: 'attachment'), class: "block text-sm font-semibold text-teal-500 hover:underline" %>
+      <% end %>
+    </div>
+  <% end %>
+  <ul class="py-3 border-t text-teal-700 flex space-x-4 text-sm">
+    <li>
+      <span class="font-semibold text-teal-800"><%= Piulade.where(piulade_id: @piulade).size %></span> Repiulades
+    </li>
+    <li>
+      <span class="font-semibold text-teal-800"><%= @piulade.likes.size %></span> Likes
+    </li>
+  </ul>
+  <div class="py-2 border-y px-4 justify-center flex">
+    <%= render "piulades/controls", piulade: @piulade %>
+  </div>
+  <!-- Turbo Frame for Edit Form, initially empty -->
+  <%#= turbo_frame_tag "#{dom_id(@piulade)}_editform" %>
+  <%= turbo_frame_tag dom_id(@piulade, :editform) do %>
+    <!-- The edit form will be loaded here -->
+  <% end %>
+  <% if user_signed_in? %>
+    <%= turbo_frame_tag "#{dom_id(@piulade)}_piulade_comment_form" do %>
+      <%= render "piulade_comments/form", piulade: @piulade %>
+    <% end %>
+  <% else %>
+    <p class="mt-6 text-center text-lg"><%= link_to "Entra", new_user_session_path, class: "text-sky-500 hover:text-sky-600 font-medium" %></p>
+  <% end %>
+  <%= turbo_frame_tag "#{dom_id(@piulade)}_piulade_comments" do %>
+    <% @piulade_comments.each do |piulade_comment| %>
+      <%= render "piulade_comments/piulade_comment", piulade_comment: piulade_comment %>
+    <% end %>
+  <% end %>
+      <div class="actions flex justify-between items-center my-4">
+      <%= link_to '← Torna', piulades_path, class: "btn-xs text-left" %>
+    </div>
+</section>

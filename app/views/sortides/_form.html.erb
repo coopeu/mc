@@ -1,0 +1,120 @@
+<%= form_with(model: sortide, class: "contents text-sm") do |form| %>
+  <% if sortide.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(sortide.errors.count, "error") %> prohibited this sortide from being saved:</h2>
+
+      <ul>
+        <% sortide.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= javascript_tag do %>
+    // your code js
+    function() {
+      const dateField = document.querySelector('input[type="date"]');
+    
+      if (dateField) {
+        dateField.addEventListener("change", function(event) {
+          const dateValue = event.target.value;
+          const [year, month, day] = dateValue.split("-");
+          event.target.value = `${day}/${month}/${year}`;
+        });
+      }
+    }
+  <% end %>
+
+  <div class="my-5">
+    <%= form.label :start_date %>
+    <%= form.date_field :start_date, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+  </div>
+  
+  <div class="my-5">
+    <%= form.label :start_time %>
+    <%= form.time_field :start_time, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+  </div>
+  <div class="my-5">
+    <%= form.label :start_point %>
+    <%= form.text_field :start_point, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+  </div>
+  <div class="my-5">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :descripcio %>
+    <%= form.rich_text_area :descripcio, rows: 6, class: "bg-white block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :category_id %>
+    <%= form.collection_select :category_id, Category.all, :id, :name, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :tipu_id %>
+    <%= form.collection_select :tipu_id, Tipu.all, :id, :name, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+  </div>
+  
+  <div class="my-5">
+    <%= form.label :ritme_id %>
+    <%= form.collection_select :ritme_id, Ritme.all, :id, :name, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :ruta_foto %>
+    <% if sortide.persisted? && sortide.ruta_foto.attached? %>
+      <div class="my-2">
+        <%= image_tag sortide.ruta_foto, class: "w-24 h-24 rounded-md border border-gray-400" %>
+      </div>
+    <% end %>
+    <%= form.file_field :ruta_foto, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <span class='mr-4'>Route: <%= sortide.Km %><%= form.label :Km %></span> Select>
+    <%= form.select :Km, options_for_select([['1-50', 25], ['51-100', 75], ['101-150', 125], ['151-200', 175], ['201-250', 225], ['251-300', 275], ['301-350', 325], ['351-400', 375], ['401-450', 425], ['451-500', 475], ['501-600', 550], ['601-1000', 800], ['1001-1500', 1250], ['1501-2000', 1750], ['2001-2500', 2250], ['2501-3000', 2750], ['+3001', 3250]]), class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :slug %>: 
+    <%= if sortide.start_date.present?
+          sortide.start_date.strftime('%Y%m%d') + "_" + sortide.title[0, 15].gsub(/\b(a|la|el|en)\b/, '').gsub(/\s+/, '')
+        else
+          "YYYYmmdd_Destí (< 20 caràcters)"
+        end %>
+    <%= form.text_field :slug, value: sortide.start_date.present? ? (sortide.start_date.strftime('%Y%m%d') + "_" + sortide.title[0, 25].gsub(/\b(a|la|el|en|i|els|les)\b/, '').gsub(/\s+/, '')) : "", class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :max_inscrits %>
+    <%= form.number_field :max_inscrits, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :min_inscrits %>
+    <%= form.number_field :min_inscrits, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :num_dies %>
+    <%= form.number_field :num_dies, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :fi_ndies %>
+    <%= form.number_field :fi_ndies, class: "block shadow-xs rounded-md border border-gray-400 outline-hidden px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :oberta %>
+    <%= form.check_box :oberta, class: "block mt-2 h-5 w-5" %>
+  </div>
+
+  <div class="inline">
+    <%= form.submit "Crea aquesta Sortida", class: "rounded-lg py-2 px-3 bg-teal-700 text-white inline-block font-medium cursor-pointer" %>
+  </div>
+<% end %>

@@ -1,0 +1,11 @@
+# config/sidekiq.yml
+:schedule:
+  PuntuacioSetmanalJob:
+    cron: "0 0 * * *" # Runs every day at midnight
+    class: PuntuacioSetmanalJob
+# config/sidekiq.yml
+:concurrency: 5
+:queues:
+  - default
+:redis:
+  :url: redis://coopeu.com:6379/0

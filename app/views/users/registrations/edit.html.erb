@@ -1,0 +1,147 @@
+<div class='flex justify-center bg-cover bg-center h-full' style="background-image: url('<%= asset_path('Ferdi-Siurana.jpg') %>'); background-size: cover; background-position: center;">
+  <div class='grid grid-cols-1 md:grid-cols-2 gap-4 m-2 justify-center border-solid border-2 border-lime-300 p-4 rounded-xs bg-white bg-opacity-50'>
+    <div class="col-span-1 md:col-span-2">
+      <%= simple_form_for(current_user, url: user_registration_path, html: { method: :put }) do |f| %>
+        <h4 class='ui header red'><i><%= f.error_notification %></i></h4>
+        <% if @user.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@user.errors.count, "error") %> aquest valors no es poden guardar:</h2>
+            <ul>
+              <% @user.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        <div class="form-inputs">
+          <div class="my-2 md:flex md:space-x-4">
+            <div class="md:flex-1 px-1">
+              <%= f.label :Nom, class: "font-bold text-lime-700 text-sm bg-white bg-opacity-80 text-sm" %>
+              <div class="ui left icon input">
+                <%= f.text_field :nom, class: "shadow-xs appearance-none border rounded-xs w-full py-1 px-2 text-grey-darker" %>
+              </div>
+            </div>
+            <div class="md:flex-1 px-1">
+              <%= f.label :Cognom_1, class: "font-bold text-lime-700 text-sm bg-white bg-opacity-80 text-sm" %>
+              <div class="ui left icon input">
+                <%= f.text_field :cognom1, class: "shadow-xs appearance-none border rounded-xs w-full py-1 px-2 text-grey-darker" %>
+              </div>
+            </div>
+            <div class="md:flex-1 px-1">
+              <%= f.label :Cognom_2, class: "font-bold text-lime-700 text-sm bg-white bg-opacity-80 text-sm" %>
+              <div class="ui left icon input">
+                <%= f.text_field :cognom2, class: "shadow-xs appearance-none border rounded-xs w-full py-1 px-2 text-grey-darker" %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- avatar -->
+          <div class="my-4">
+            <p><%= f.label :la_teva_foto, class: "font-bold text-rose-700 text-sm bg-white bg-opacity-80 text-sm p-1 rounded-xs" %>
+            <span class="text-red-500 text-xs font-bold italic bg-white bg-opacity-50 ml-2">La mida màxima de la foto és 3MB.</span>
+            <% if @user.avatar.persisted? && @user.avatar.attached? %>
+              <%= image_tag @user.avatar, style: "width:50px;" %></p>
+          <% end %>
+          <div class="ui left icon input">
+            <%= f.file_field :avatar, autofocus: true, placeholder: "La teva foto" %>
+          </div>
+        </div>
+        <!-- ./avatar -->
+        <div class="my-2 md:flex md:space-x-4">
+          <div class="md:flex-1 px-1">
+            <%= f.label :moto_marca, class: "font-bold text-lime-700 text-sm bg-white bg-opacity-80 text-sm" %>
+            <div class="ui left icon input">
+              <%= f.text_field :moto_marca, class: "shadow-xs appearance-none border rounded-xs w-full py-1 px-2 text-grey-darker" %>
+            </div>
+          </div>
+          <div class="md:flex-1 px-1">
+            <%= f.label :moto_model, class: "font-bold text-lime-700 text-sm bg-white bg-opacity-80 text-sm" %>
+            <div class="ui left icon input">
+              <%= f.text_field :moto_model, class: "shadow-xs appearance-none border rounded-xs w-full py-1 px-2 text-grey-darker" %>
+            </div>
+          </div>
+        </div>
+                  <!-- foto_moto -->
+          <div class="my-4">
+            <p><%= f.label :foto_de_la_teva_moto, class: "font-bold text-rose-700 text-sm bg-white bg-opacity-80 text-sm p-1 rounded-xs" %>
+            <span class="text-red-500 text-xs font-bold italic bg-white bg-opacity-50 ml-2">La mida màxima de la foto és 3MB.</span>
+            <% if @user.foto_moto.persisted? && @user.foto_moto.attached? %>
+              <%= image_tag @user.foto_moto, style: "width:50px;" %></p>
+          <% end %>
+          <div class="ui left icon input">
+            <%= f.file_field :foto_moto, autofocus: true, placeholder: "foto moto" %>
+          </div>
+        </div>
+        <!-- ./foto_moto -->
+        </div>
+        <div class="my-2 md:flex md:space-x-4 my-2">
+          <div class="md:flex-1 px-1">
+            <%= f.label :provincia, class: "font-bold text-lime-700 text-sm bg-white bg-opacity-80 text-sm" %>
+            <div class="ui left icon input">
+              <%= f.text_field :provincia, class: "shadow-xs appearance-none border rounded-xs w-full py-1 px-2 text-grey-darker" %>
+            </div>
+          </div>
+          <div class="md:flex-1 px-1">
+            <%= f.label :comarca, class: "font-bold text-lime-700 text-sm bg-white bg-opacity-80 text-sm" %>
+            <div class="ui left icon input">
+              <%= f.text_field :comarca, class: "shadow-xs appearance-none border rounded-xs w-full py-1 px-2 text-grey-darker" %>
+            </div>
+          </div>
+          <div class="md:flex-1 px-1">
+            <%= f.label :municipi, class: "font-bold text-lime-700 text-sm bg-white bg-opacity-80 text-sm" %>
+            <div class="ui left icon input">
+              <%= f.text_field :municipi, class: "shadow-xs appearance-none border rounded-xs w-full py-1 px-2 text-grey-darker" %>
+            </div>
+          </div>
+        </div>
+        <div class="my-2">
+          <%= f.label :data_de_naixement, class: "font-bold text-lime-700 text-sm bg-white bg-opacity-80 text-sm" %>
+          <div class="ui left icon input">
+            <%= f.date_select :data_naixement, autofocus: true, placeholder: "Any del teu naixement", start_year: DateTime.now.year - 18, end_year: DateTime.now.year - 75 %>
+          </div>
+        </div>
+        <div class="my-2">
+          <%= f.label :curta_presentació_com_motorista, class: "font-bold text-lime-700 text-sm bg-white bg-opacity-80 text-sm" %>
+          <div class="ui left icon input">
+            <%= f.text_area :presentacio, autofocus: true, placeholder: "La teva curta presentació i historial com motorista", class: "shadow-xs appearance-none border rounded-xs w-full py-1 px-2 text-grey-darker", rows: 10 %>
+          </div>
+        </div>
+        <!-- private data -->
+        <div class='mt-12 border-solid border-2 border-lime-300 p-4 rounded-xs bg-lime-100'>
+          <div class="md:flex md:space-x-4">
+            <div class="md:flex-1 px-1">
+              <%= f.label :mòbil, style: "margin-top:20px;", class: "font-bold text-lime-700 text-sm bg-white bg-opacity-80 text-sm" %>
+              <div class="">
+                <%= f.text_field :mobil, autofocus: true, placeholder: "El número del teu mòbil per unir-te al grup de WhatsApp", class: "shadow-xs appearance-none border rounded-xs w-full py-1 px-2 text-grey-darker" %>
+              </div>
+            </div>
+            <div class="md:flex-1 px-1">
+              <%= f.label :email, class: "font-bold text-lime-700 text-sm bg-white bg-opacity-80 text-sm" %>
+              <div class="">
+                <%= f.email_field :email, autofocus: true, class: "shadow-xs appearance-none border rounded-xs w-full py-1 px-2 text-grey-darker" %>
+              </div>
+            </div>
+          </div>
+          <!-- Optional password fields for changing password -->
+          <div class="mt-6 mb-2 md:flex md:space-x-4">
+            <div class="md:flex-1 px-1">
+              <%= f.label :password, class: "font-bold text-lime-600 text-sm" %>
+              <div class="ui left icon input">
+                <%= f.password_field :password, class: "shadow-xs appearance-none border rounded-xs w-full py-1 px-2 text-grey-darker text-xs", autocomplete: "off" %>
+              </div>
+            </div>
+            <div class="md:flex-1 px-1">
+              <%= f.label :password_confirmation, class: "font-bold text-lime-600 text-sm" %>
+              <div class="ui left icon input">
+                <%= f.password_field :password_confirmation, class: "shadow-xs appearance-none border rounded-xs w-full py-1 px-2 text-grey-darker text-xs", autocomplete: "off" %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="my-4 text-center">
+          <%= f.button :submit, "Canvia", class: "bg-lime-600 hover:bg-lime-700 text-white hover:text-lime-100 font-bold py-2 px-4 rounded-xs" %>
+        </div>
+      <% end %><!-- form -->
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+{
+  "mcpServers": {
+    "github.com/upstash/context7-mcp": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@upstash/context7-mcp@latest"],
+      "disabled": false,
+      "autoApprove": []
+    },
+    "github.com/stripe/agent-toolkit": {
+      "command": "cmd",
+      "args": ["/c", "npx", "-y", "@stripe/mcp", "--tools=all"],
+      "env": {
+        "STRIPE_SECRET_KEY": "${env:STRIPE_SECRET_KEY}"
+      },
+      "disabled": false,
+      "autoApprove": []
+    },
+    "motos-cat-ssh": {
+      "command": "cmd",
+      "args": ["/c", "ssh", "motos.cat"],
+      "disabled": false,
+      "autoApprove": ["ssh"]
+    }
+  }
+}

@@ -1,0 +1,7 @@
+<div role="alert" class='text-sm text-red-700'>
+  <% flash.each do |key, value|%>
+    <div class="bg-red-100 border border-red-400 px-4 py-3 rounded-xs relative m-4" role="alert">
+      <strong class="italic"><%= value %>!</strong>
+    </div>
+  <% end %>
+</div>

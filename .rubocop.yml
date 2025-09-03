@@ -1,0 +1,133 @@
+# RuboCop configuration for motos.cat Rails application
+# See https://docs.rubocop.org/rubocop/configuration.html
+
+plugins:
+  - rubocop-rails
+  - rubocop-performance
+  - rubocop-rspec
+
+AllCops:
+  TargetRubyVersion: 3.4
+  TargetRailsVersion: 8.0
+  NewCops: enable
+  Exclude:
+    - 'vendor/**/*'
+    - 'node_modules/**/*'
+    - 'tmp/**/*'
+    - 'log/**/*'
+    - 'db/schema.rb'
+    - 'db/migrate/*.rb'
+    - 'bin/**/*'
+    - 'config/boot.rb'
+    - 'config/environment.rb'
+    - 'config/application.rb'
+    - 'config/environments/*.rb'
+    - 'config/initializers/*.rb'
+    - 'config/puma.rb'
+    - 'config/routes.rb'
+    - 'Rakefile'
+    - 'config.ru'
+
+# Layout and Formatting
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - 'scripts/**/*'
+    - 'test/**/*'
+
+# Style Rules
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: true
+  EnforcedStyle: always
+
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+# Rails-specific Rules
+Rails/WhereNotWithMultipleConditions:
+  Enabled: false  # Allow for readability in complex queries
+
+Rails/SquishedSQLHeredocs:
+  Enabled: false  # Allow for script flexibility
+
+# Performance Rules
+Performance/StringReplacement:
+  Enabled: true
+
+# Metrics - Allow larger classes/methods for Rails controllers/models
+Metrics/ClassLength:
+  Max: 200
+  Exclude:
+    - 'app/controllers/**/*'
+    - 'app/models/**/*'
+
+Metrics/MethodLength:
+  Max: 30
+  Exclude:
+    - 'app/controllers/**/*'
+    - 'scripts/**/*'
+
+Metrics/AbcSize:
+  Max: 25
+  Exclude:
+    - 'app/controllers/**/*'
+    - 'scripts/**/*'
+
+Metrics/CyclomaticComplexity:
+  Max: 10
+
+Metrics/PerceivedComplexity:
+  Max: 10
+
+Metrics/BlockNesting:
+  Max: 4
+  Exclude:
+    - 'scripts/**/*'
+
+# Lint Rules
+Lint/EmptyFile:
+  Enabled: true
+
+Lint/FloatComparison:
+  Enabled: false  # Allow for coordinate comparisons
+
+# Naming Rules
+Naming/AccessorMethodName:
+  Enabled: false  # Allow get_ prefixes for service methods
+
+# Additional Rails-specific configurations
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+    - 'config/routes.rb'
+    - 'config/environments/*.rb'
+
+Style/WordArray:
+  EnforcedStyle: percent
+  MinSize: 3
+
+Style/SymbolArray:
+  EnforcedStyle: percent
+  MinSize: 3
+
+Rails/BulkChangeTable:
+  Enabled: true
+
+Rails/FilePath:
+  EnforcedStyle: arguments
+
+Rails/TimeZone:
+  EnforcedStyle: strict
+
+Rails/Date:
+  EnforcedStyle: strict
+
+Rails/Output:
+  Exclude:
+    - 'db/seeds.rb'
+    - 'lib/tasks/**/*'
+    - 'scripts/**/*'

@@ -1,0 +1,324 @@
+<div class="min-h-screen bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
+  <!-- Hero Section with Parallax Background -->
+  <div class="relative h-screen flex items-center justify-center overflow-hidden">
+    <!-- Background Image with Overlay -->
+    <div class="absolute inset-0 z-0">
+      <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-110" 
+           style="background-image: url(<%= asset_path('portada_bg4.jpg') %>);">
+      </div>
+      <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/60 to-black/80"></div>
+    </div>
+    <!-- Animated Background Elements -->
+    <div class="absolute inset-0 z-10">
+      <div class="absolute top-1/4 left-1/4 w-64 h-64 bg-lime-500/10 rounded-full blur-3xl animate-pulse"></div>
+      <div class="absolute bottom-1/4 right-1/4 w-96 h-96 bg-teal-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+    </div>
+    <!-- Hero Content -->
+    <div class="relative z-20 text-center px-4 max-w-6xl mx-auto">
+      <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 animate-fade-in-up">
+        <span class="bg-gradient-to-r from-lime-400 to-teal-400 bg-clip-text text-transparent">
+          Mil Revolts
+        </span>
+      </h1>
+      <p class="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto animate-fade-in-up animation-delay-200">
+        Uneix-te al grup motorista més actiu de Catalunya. Descobreix rutes espectaculars, 
+        comparteix passió i viu aventures inoblidables sobre dues rodes.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center animate-fade-in-up animation-delay-400">
+        <%= link_to sortides_path, class: "inline-flex items-center px-8 py-4 bg-gradient-to-r from-lime-500 to-teal-500 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300" do %>
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
+          </svg>
+          Explora Sortides
+        <% end %>
+        <%= link_to users_path, class: "inline-flex items-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300" do %>
+          <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+          </svg>
+          Uneix-te al Club
+        <% end %>
+      </div>
+    </div>
+    <!-- Scroll Indicator -->
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <svg class="w-6 h-6 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+      </svg>
+    </div>
+  </div>
+  <!-- Stats Section -->
+  <section class="py-20 bg-slate-800/50 backdrop-blur-sm">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="text-center">
+          <div class="text-4xl font-bold text-lime-400 mb-2"><%= Sortide.where('start_date > ?', Date.today).count %></div>
+          <div class="text-gray-300">Sortides Actives</div>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-teal-400 mb-2"><%= User.count %></div>
+          <div class="text-gray-300">Motoristes</div>
+        </div>
+        <div class="text-center">
+          <div class="text-4xl font-bold text-lime-400 mb-2">2018</div>
+          <div class="text-gray-300">Any de Fundació</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Featured Rides Section -->
+  <section class="py-24 bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
+          Sortides <span class="text-lime-400">Destacades</span>
+        </h2>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+          Descobreix les pròximes aventures que hem preparat per tu
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <% @sortides.limit(3).each do |sortide| %>
+          <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden hover:transform hover:scale-105 transition-all duration-300">
+            <div class="aspect-w-16 aspect-h-9">
+              <% if sortide.ruta_foto.attached? %>
+                <%= image_tag sortide.ruta_foto, class: "w-full h-48 object-cover group-hover:scale-110 transition-transform duration-300" %>
+              <% else %>
+                <div class="w-full h-48 bg-gradient-to-br from-lime-500/20 to-teal-500/20 flex items-center justify-center">
+                  <svg class="w-16 h-16 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"></path>
+                  </svg>
+                </div>
+              <% end %>
+            </div>
+            <div class="p-6">
+              <div class="flex items-center justify-between mb-3">
+                <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-lime-500/20 text-lime-300">
+                  <%= formatted_date(sortide.start_date) %>
+                </span>
+                <span class="text-sm text-gray-400">
+                  <%= sortide.inscripcios.count %> inscrits
+                </span>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2 group-hover:text-lime-400 transition-colors">
+                <%= truncate(sortide.title, length: 40) %>
+              </h3>
+              <div class="flex items-center text-sm text-gray-400 mb-4">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                </svg>
+                <%= sortide.start_point %> • <%= sortide.start_time.strftime("%H:%M") %>
+              </div>
+              <%= link_to sortide_path(sortide), class: "inline-flex items-center text-lime-400 hover:text-lime-300 font-medium" do %>
+                Veure detalls
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+        <!-- Add More Card -->
+        <div class="group relative bg-slate-800/50 backdrop-blur-sm rounded-2xl overflow-hidden border-2 border-dashed border-slate-600 hover:border-lime-500 transition-all duration-300">
+          <div class="flex items-center justify-center h-full min-h-[300px]">
+            <%= link_to sortides_path, class: "text-center p-8" do %>
+              <div class="w-16 h-16 bg-lime-500/20 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-lime-500/30 transition-colors">
+                <svg class="w-8 h-8 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Veure totes les sortides</h3>
+              <p class="text-gray-400">Descobreix <%= Sortide.where('start_date > ?', Date.today).count %> aventures més</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Community Section -->
+  <section class="py-24 bg-slate-800/30">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">
+          La Nostra <span class="text-teal-400">Comunitat</span>
+        </h2>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto">
+          Coneix els motoristes que formen part d'aquesta gran família
+        </p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <% @users.limit(8).each do |user| %>
+          <div class="group bg-slate-800/50 backdrop-blur-sm rounded-xl p-6 hover:bg-slate-700/50 transition-all duration-300">
+            <%= link_to user_path(user), class: "" do %>
+              <div class="flex items-center space-x-2">
+                <% if user.avatar.attached? %>
+                  <%= image_tag user.avatar, class: "w-16 h-16 rounded-full object-cover ring-2 ring-lime-500/50 group-hover:ring-lime-400 transition-all" %>
+                <% else %>
+                  <div class="w-16 h-16 rounded-full bg-gradient-to-br from-lime-500 to-teal-500 flex items-center justify-center ring-2 ring-lime-500/50">
+                    <span class="text-white font-bold text-lg"><%= user.nom.first %></span>
+                  </div>
+                <% end %>
+                <div class="flex-1">
+                  <h3 class="font-semibold text-white group-hover:text-lime-400 transition-colors"><%= user.nom %></h3>
+                  <p class="text-sm text-gray-400"><%= user.moto_model %></p>
+                  <p class="text-xs text-gray-500"><%= user.municipi %></p>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="text-center mt-12">
+        <%= link_to users_path, class: "inline-flex items-center px-8 py-4 bg-gradient-to-r from-teal-500 to-lime-500 text-white font-semibold rounded-full shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300" do %>
+          Descobreix tots els motoristes
+          <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+          </svg>
+        <% end %>
+      </div>
+    </div>
+  </section>
+  <!-- About Section -->
+  <section class="py-24 bg-slate-900">
+    <div class="max-w-7xl mx-auto px-4">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <h2 class="text-4xl md:text-5xl font-bold text-white mb-6">
+            Sobre <span class="text-lime-400">El Club</span>
+          </h2>
+          <p class="text-xl text-gray-300 mb-6">
+            El Grup Motorista 'Mil Revolts' és molt més que un club. Som una família 
+            apassionada per les dues rodes que des del 2018 organitza sortides 
+            setmanals per descobrir els racons més bonics de Catalunya.
+          </p>
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <div class="w-8 h-8 bg-lime-500/20 rounded-full flex items-center justify-center mr-4 mt-1">
+                <svg class="w-4 h-4 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-white mb-1">Sortides Setmanals</h3>
+                <p class="text-gray-400">Cada dimecres i caps de setmana tenim sortides organitzades</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="w-8 h-8 bg-lime-500/20 rounded-full flex items-center justify-center mr-4 mt-1">
+                <svg class="w-4 h-4 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-white mb-1">Crea la teva Sortida</h3>
+                <p class="text-gray-400">Organitza la teva pròpia aventuda i convida als teus seguidors</p>
+              </div>
+            </div>
+            <div class="flex items-start">
+              <div class="w-8 h-8 bg-lime-500/20 rounded-full flex items-center justify-center mr-4 mt-1">
+                <svg class="w-4 h-4 text-lime-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-semibold text-white mb-1">Comunitat Activa</h3>
+                <p class="text-gray-400">Uneix-te a <%= User.count %> motoristes apassionats</p>
+              </div>
+            </div>
+          </div>
+          <div class="mt-8">
+            <%= link_to club_path, class: "inline-flex items-center px-6 py-3 bg-lime-500 text-white font-semibold rounded-lg hover:bg-lime-600 transition-colors" do %>
+              Saber més sobre el club
+              <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+              </svg>
+            <% end %>
+          </div>
+        </div>
+        <div class="relative">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="space-y-4">
+              <div class="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4">
+                <%= image_tag "20180530_Guilleries.jpg", class: "w-full h-32 object-cover rounded-lg" %>
+              </div>
+              <div class="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4">
+                <%= image_tag "20181107.jpeg", class: "w-full h-32 object-cover rounded-lg" %>
+              </div>
+            </div>
+            <div class="space-y-4 mt-8">
+              <div class="bg-slate-800/50 backdrop-blur-sm rounded-xl p-4">
+                <%= image_tag "Jordi2.PNG", class: "w-full h-32 object-cover rounded-lg" %>
+              </div>
+              <div class="bg-gradient-to-br from-lime-500/20 to-teal-500/20 rounded-xl p-6 flex items-center justify-center h-32">
+                <span class="text-lime-400 font-bold text-lg">+<%= User.count %> Motoristes</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Newsletter Section -->
+  <section class="py-24 bg-gradient-to-r from-lime-600 to-teal-600">
+    <div class="max-w-4xl mx-auto px-4 text-center">
+      <h2 class="text-4xl font-bold text-white mb-4">El Noticiari Mensual</h2>
+      <p class="text-xl text-white/90 mb-8 max-w-2xl mx-auto">
+        Subscriu-te per rebre les últimes notícies, sortides i esdeveniments del club
+      </p>
+      <%= form_with model: Subscriptor.new, url: subscriptors_path, local: true, class: "max-w-md mx-auto" do |f| %>
+        <%= invisible_captcha %>
+        <div class="flex gap-4">
+          <%= f.email_field :email, 
+                class: "flex-1 px-4 py-3 rounded-lg bg-white/20 backdrop-blur-sm border border-white/30 text-white placeholder-white/70 focus:outline-none focus:ring-2 focus:ring-white/50", 
+                placeholder: "El teu email", 
+                required: true %>
+          <%= f.submit "Subscriure'm", 
+                class: "px-6 py-3 bg-white text-lime-600 font-semibold rounded-lg hover:bg-gray-100 transition-colors" %>
+        </div>
+      <% end %>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="bg-slate-900 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 py-12">
+      <div class="text-center">
+        <h3 class="text-2xl font-bold text-white mb-4">Mil Revolts</h3>
+        <p class="text-gray-400 mb-6">Grup Motorista de Catalunya des del 2018</p>
+        <div class="flex justify-center space-x-6">
+          <%= link_to sortides_path, class: "text-gray-400 hover:text-lime-400 transition-colors" do %>
+            Sortides
+          <% end %>
+          <%= link_to users_path, class: "text-gray-400 hover:text-lime-400 transition-colors" do %>
+            Motoristes
+          <% end %>
+          <%= link_to club_path, class: "text-gray-400 hover:text-lime-400 transition-colors" do %>
+            El Club
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+<style>
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.8s ease-out forwards;
+  }
+
+  .animation-delay-200 {
+    animation-delay: 200ms;
+  }
+
+  .animation-delay-400 {
+    animation-delay: 400ms;
+  }
+</style>

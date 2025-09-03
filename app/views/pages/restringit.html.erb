@@ -1,0 +1,17 @@
+  
+<div class="w-full min-h-[100vh] flex items-center justify-center" style="background-image: url(<%= asset_path('collage_1920_.jpg') %>); background-size: cover; background-position: center;">
+  <div class="max-w-xl w-full mx-auto shadow-lg bg-gray-200 rounded-lg py-12">
+    <div class='flex justify-center mb-4'>
+      <%= image_tag("LogoMOTOS.CAT250.png", alt: "Mil Revolts", class: "ml-6 object-center mb-8") %>
+    </div>
+    <h2 class="text-3xl  text-lime-700 mb-8 text-center font-bold"><i class="fas fa-lock mr-2"></i> Restringit</h2>
+    <div class="w-3/4 mx-auto text-rose-600 font-bold italic my-4">
+      <p class="">VISITANT aquest contingut és restringit als motoristes registrats.</p>
+      <p class="text-lime-600 text-sm mt-4">Per a veure els perfils dels motoristes s'ha de registrar o bé identificar-se si ja està registrat!</p>
+      <div class="flex justify-center space-x-4 text-lime-700 mt-4">
+        <%= link_to 'Registre', new_user_registration_path, class:'btn-sm m-4' %>
+        <%= link_to 'Entrada', new_user_session_path, class:'btn-sm m-4' %>
+      </div>
+    </div>
+  </div>
+</div>

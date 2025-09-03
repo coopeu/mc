@@ -1,0 +1,144 @@
+<div class="w-full min-h-[100vh] relative" style="background-image: url(<%= asset_path('portada_bg4.jpg') %>); background-size: cover; background-position: center;">
+  <div class="absolute inset-0 bg-black opacity-50"></div>
+  <!-- Content goes here -->
+  <!-- Sortides Section -->
+  <div class="sortides-section my-4 p-4 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+      <% @sortides.limit(3).each do |sortide| %>
+        <div class="h-auto max-w-sm rounded-xs">
+          <%= link_to sortide_path(sortide) do %>
+            <div class="px-2 mt-8 bg-white shadow-lg">
+              <p class="text-sm font-bold py-1">
+                <%= formatted_date(sortide.start_date) %>
+              </p>
+              <p class="text-sm font-bold pb-1">
+                <%= truncate(sortide.title, length: 50) %>
+              </p>
+              <div class="flex justify-end text-2xs py-1 leading-tight">
+                <span class="text-gray-700 font-semi bold">
+                  Inscrits: <%= sortide.inscripcios.count %>
+                </span>
+              </div>
+              <p class="text-2xs py-1 pb-4">
+                <span class="block font-semi bold">Punt de trobada: 
+                  <%= sortide.start_time.strftime("%H:%M") %> a <%= sortide.start_point %>
+                </span>
+              </p>
+            </div>
+            <figure class="relative">
+              <%= image_tag(sortide.ruta_foto, class: "h-auto max-w-full") if sortide.ruta_foto.attached? %>
+            </figure>
+          <% end %><!-- ./link_to -->
+        </div>
+      <% end %><!-- ./sortides -->
+      <div class="flex items-center justify-center">
+        <%= link_to sortides_path, class: '  @apply text-gray-800 hover:text-red-900 bg-linear-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-linear-to-br focus:ring-4 focus:outline-hidden focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-10 py-6 text-center m-2; inline-flex items-center' do %>
+          +Sortides
+          <span class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-teal-800 bg-teal-100 rounded-full">
+            <%= Sortide.where('start_date > ?', Date.today).count %>
+          </span>
+          <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+          </svg>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <!-- Motoristes Section -->
+  <div class="motoristes-section my-6 p-4 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7 gap-4">
+      <% @users.limit(6).each do |user| %>
+        <div class="motorista-item bg-white p-4 rounded-xs shadow-xs flex items-center">
+          <% if user.avatar.attached? %>
+            <%= link_to user_path(user) do %>
+              <%= image_tag user.avatar, style: "width:40px;height:40px;", class: "rounded-full mr-3" %>
+            <% end %>
+          <% else %>
+            <%= image_tag "web/motorista50bn.png", style: "width:40px;height:40px;", class: "rounded-full mr-3" %>
+          <% end %>
+          <div>
+            <%= link_to user_path(user) do %>
+              <h3 class="text-lg font-semibold"><%= user.nom %></h3>
+              <p class="text-sm"><%= user.moto_model %></p>
+              <p class="text-sm"><%= user.municipi %></p>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+      <div class="flex items-center justify-center">
+        <%= link_to users_path, class: '  @apply text-gray-800 hover:text-red-900 bg-linear-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-linear-to-br focus:ring-4 focus:outline-hidden focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-10 py-6 text-center m-2; inline-flex items-center' do %>
+          +Motoristes
+          <span class="inline-flex items-center justify-center w-4 h-4 ms-2 text-xs font-semibold text-teal-800 bg-teal-100 rounded-full">
+            <%= User.count %>
+          </span>
+          <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+          </svg>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <!-- ElClub Section -->
+  <div class="elclub-section mt-4 mb-16 p-4 relative z-10">
+    <div class="grid grid-cols-1 md:grid-cols-5 gap-4 my-4">
+      <div class="elclub-item bg-white p-4 rounded-xs shadow-xs flex flex-col">
+        <div class="flex items-start">
+          <img src="<%= asset_path('20180530_Guilleries.jpg') %>" alt="Rupit 2018" class="w-10 h-auto mr-4">
+          <div>
+            <p class="font-bold text-sm text-lime-600">Des del 2018!</p>
+          </div>
+        </div>
+        <p class="mt-2 text-sm">
+          El Grup Motorista 'Mil Revolts' és un grup de motoristes que es va organitzar per sortir en moto en grup per Catalunya.
+        </p>
+      </div>
+      <div class="elclub-item bg-white p-4 rounded-xs shadow-xs flex flex-col">
+        <div class="flex items-start">
+          <img src="<%= asset_path('20181107.jpeg') %>" alt="JM" class="w-10 h-auto mr-4">
+          <div>
+            <p class="font-bold text-sm text-lime-600">Sortides setmanals!</p>
+          </div>
+        </div>
+        <p class="mt-2 text-sm">
+          Generalment cada dimecres i quasi cada cap de setmana hi ha una sortida organitzada.
+        </p>
+      </div>
+      <div class="elclub-item bg-white p-4 rounded-xs shadow-xs flex flex-col">
+        <div class="flex items-start">
+          <img src="<%= asset_path('Jordi2.PNG') %>" alt="Font-rubí" class="w-20 h-auto mr-4">
+          <div>
+            <p class="font-bold text-sm text-lime-600">Crea una Sortida!</p>
+          </div>
+        </div>
+        <p class="mt-2 text-sm">
+          Si no ni ha cap sortida, organitza la teva pròpia sortida fàcilment i convida al teus seguidors!
+        </p>
+      </div>
+      <div class="elnoticiari bg-white p-4 rounded-xs shadow-xs flex flex-col">
+        <div class="flex items-start">
+          <p class="title-icon-1 my-6 text-lime-600"><i class="fas fa-bullhorn mr-3 text-4xl text-teal017"></i><b>El noticiari mensual!</b></p>
+        </div>
+        <p class="mt-2 text-sm">
+          <%= form_with model: Subscriptor.new, url: subscriptors_path, local: true do |f| %>
+            <%= invisible_captcha %>
+            <div class="mb-4">
+              <%= f.email_field :email, class: "m-1 p-1 block w-full shadow-large sm:text-sm border-2 border-lime-400 rounded-md focus:border-lime-800 focus:ring-lime-800", required: true %>
+            </div>
+            <div class="flex justify-end">
+              <%= f.submit "Subscriu-te", class: "inline-flex py-2 px-4 border border-transparent shadow-2xs text-sm font-medium rounded-md text-white bg-lime-600 hover:bg-lime-700 focus:outline-hidden focus:ring-2 focus:ring-offset-2 focus:ring-lime-800" %>
+            </div>
+          <% end %>
+        </p>
+        <p class="mt-2 text-sm">
+        </div>
+        <div class="flex items-center justify-center">
+          <%= link_to club_path, class:'@apply text-gray-800 hover:text-red-900 bg-linear-to-r from-lime-200 via-lime-400 to-lime-500 hover:bg-linear-to-br focus:ring-4 focus:outline-hidden focus:ring-lime-300 dark:focus:ring-lime-800 shadow-lg shadow-lime-500/50 dark:shadow-lg dark:shadow-lime-800/80 font-medium rounded-lg text-sm px-10 py-6 text-center m-2; inline-flex items-center' do %>
+            +Sobre El Club
+            <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 10">
+              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 5h12m0 0L9 1m4 4L9 9"/>
+            </svg>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>

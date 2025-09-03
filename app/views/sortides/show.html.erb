@@ -1,0 +1,251 @@
+<div id="sortide" class='sm:p-1 md:p-2 text-teal-700 min-h-screen'>
+  <div class='font-bold drop-shadow-lg px-4 my-4'>
+    <p class="block text-3xl"><%= @sortide.title %></p>
+    <p class="block text-2xl"><%= formatted_date(@sortide.start_date) %></p>
+  </div>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class='mx-2 md:mx-4'>
+      <p class="m-4 p-2">
+        <span class="font-bold border border-lime-400 bg-lime-100 p-1 rounded-lg">Punt de trobada:
+          <%= @sortide.start_time.strftime("%H:%M") %>
+          a <%= @sortide.start_point %></span>
+      </p>
+      <div class="flex justify-start items-center flex-wrap w-full mb-8">
+        <% @sortideclasses.each do |classe| %>
+          <p class="text-2xl font-semibold">
+            <span class='text-xs bg-lime-50 text-lime-800 text-sm font-semibold mr-2 px-2 py-0.5 rounded-lg '>
+              <%= classe.category.name %></span>
+            <span class='text-xs bg-lime-50 text-lime-800 text-sm font-semibold mr-2 px-2 py-0.5 rounded-lg '>
+              Ritme <%= classe.ritme.name %></span>
+            <span class='text-xs bg-lime-50 text-lime-800 text-sm font-semibold mr-2 px-2 py-0.5 rounded-lg '>
+              <%= classe.tipu.name %></span>
+          </p>
+        <% end %>
+        <p class="block text-xs mb-1 pt-1 ml-auto items-center text-right font-semibold">
+          Ruta: <%= @sortide.Km %> Km aprox.
+        </p>
+        <!-- GPX -->        <!-- GPX -->
+        <% if @sortide.persisted? && @sortide.ruta_gpx.attached? %>
+          <div class="block ml-auto items-center my-2">
+            <% if user_signed_in? && @sortide.inscripcios.exists?(user: current_user) %>
+              <%= link_to "Download GPX", rails_blob_path(@sortide.ruta_gpx, disposition: "attachment"), class: "btn-xs inline-flex" %>
+            <% else %>
+              <p class="text-xs text-red-400 my-1">SUP motorista inscriu-te per descarregar el <b>fitxer GPX</b> de la ruta.</p>
+            <% end %>
+          </div>
+        <% end %>
+        <!-- ./GPX -->        <!-- ./GPX -->
+      </div>
+      <p class="md:m-4 text-xsm mb-1">
+        <small><%= sanitize @sortide.descripcio.body.to_s %></small>
+      </p>
+      <!-- Guia -->
+      <div id="guia" class="flex items-center justify-center">
+        <p class="flex items-center inline-block text-sm my-4 p-2 text-lime-700 border border-lime-600 mx-auto rounded-lg ">
+          <span class="mx-1 font-semibold">Guia:</span>
+          <% if @sortide.user_id.nil? %>
+            <span class="text-xs text-rose-600 font-semibold">"Sense Xerpa ni cap Lider establert"</span>
+          <% else %>
+            <%= link_to @sortide.user.slug, user_path(@sortide.user), class: "mx-2" %>
+            <%= image_tag(@sortide.user.avatar, class: "w-8 h-8 rounded-full") if @sortide.user.avatar.attached? %>
+          <% end %>
+        </p>
+      </div>
+      <!-- ./Guia -->
+      <div class='text-xs mt-6 mb-8'>
+        <p class='mt-3'>
+          <span class='font-semibold'>Inscripcions:</span>
+          <%= render 'inscripcions' %>
+        </p>
+        <p class='mt-3'>
+          <span class='font-semibold'>Observacions:</span>
+          <%= render 'observacions' %>
+        </p>
+        <p class='mt-3'>
+          <span class='font-semibold'>Contacte:</span>
+          <%= render 'contacte' %>
+        </p>
+      </div>
+      <!-- inscripcions -->
+      <!-- inscripcions -->
+      <section id="inscripcions" class='m-6 p-3 bg-white rounded-lg  border-4'>
+        <p class='text-lg text-lime-700 mb-1 font-bold'>Inscripcions:</p>
+        <div class="my-3 label text-lime-600 text-sm">
+          Mínim /<b> Actual </b>/ Màxim número d'inscrits:
+          <span class='text-base'>
+            <%= @sortide.min_inscrits %> / <b><%= @sortide.inscripcios.count %></b> / <%= @sortide.max_inscrits %>
+          </span>
+          <ul class='py-3'>
+            <span class='text-base text-teal-600 mb-6'>
+              Llista d'inscrits:
+              <% if admin?(current_user) %>
+                <span>n.<%= @sortide.id %> </span>
+              <% end %>
+              <%= @sortide.title %>:
+            </span>
+            <br/>
+            <br/>
+            <% @sortide.inscripcios.each_with_index do |inscripcio, index| %>
+              <% if inscripcio.user %>
+                <li class='flex text-sm my-1'>
+                  <span class='inline-block align-middle pt-2'><%= index + 1 %>) </span>
+                  <%= link_to user_path(inscripcio.user) do %>
+                    <% if inscripcio.user.avatar.attached? %>
+                      <%= image_tag(inscripcio.user.avatar, class:'inline-block w-10 h-10 rounded-full mx-2') %>
+                    <% else %>
+                      <%= image_tag("web/motorista50bn.png", class:'inline-block w-10 h-10 rounded-full mx-2') %>
+                    <% end %>
+                    <span class='inline-block align-middle'><%= inscripcio.user.slug %></span>
+                  <% end %>
+                </li>
+              <% end %>
+            <% end %>
+            <br/>
+            <!-- Date to Time -->
+            <% inscription_close_date = (@sortide.start_date - @sortide.fi_ndies.days).to_time.change(hour: 12) %>
+            <% current_time = Time.current %>
+            <% if inscription_close_date > current_time %>
+              <p class="my-4">
+                <span class="block text-sm text-lime-500">
+                  Inscripcions fins el migdia <small> (Hora de tancament: <%= inscription_close_date.strftime("%H:%M") %>) </small> del <%= formatted_date(inscription_close_date.to_date) %>,  <b> queden <%= distance_of_time_in_words(current_time, inscription_close_date) %></b>
+                </span>
+              </p>
+              <% if user_signed_in? %>
+                <% unless @inscripcio %>
+                  <div class="flex justify-center">
+                    <%= button_to 'Inscriu-te', inscribe_sortide_path(@sortide), method: :post, class: ' rounded py-1 px-2 bg-yellow-200 text-sm font-semibold border border-lime-600 hover:bg-yellow-300 hover:font-bold flex items-center justify-center;
+' %>
+                  </div>
+                <% end %>
+              <% end %>
+            <% end %>
+          </ul>
+        </div>
+      </section>
+      <!-- ./ inscripcions -->
+      <!-- ./ inscripcios -->
+      <% if current_user&.admin? %>
+        <div class="flex justify-center items-center space-x-8 w-full mx-6 py-4 mb-6">
+          <%= link_to "Edita sortida", edit_sortide_path, class: "btn-sm" %>
+          <%= button_to "Esborra sortida", sortide_path(@sortide), method: :delete, data: { confirm: "Are you sure you want to remove this sortida?" }, class: "btn-2xs-red" %>
+        </div>
+      <% end %>
+    </div>
+    <!-- ./main -->
+    <!--./aside -->
+    <aside id="aside" class='mx-2 md:mx-4'>
+      <figure class="relative lg:max-w-lg lg:w-full md:w-3/4 w-5/6 mx-auto shadow-lg rounded-lg">
+        <%= image_tag(@sortide.ruta_foto, class: "h-auto max-w-full") if @sortide.ruta_foto.attached? %>
+      </figure>
+      <div id="sections" class='mx-2 md:mx-4'>
+        <!-- Comments Section -->
+        <section id="Comments" class='m-6 p-3 bg-white rounded-lg  border-4'>
+          <p class='text-lg text-lime-700 mb-1 font-bold'>Comentaris: <span class="text-xs font-thin">(oberts a tots els "Revoltaires")</span></p>
+          <ul>
+            <% @comments.each do |comment| %>
+              <li class='mb-2 text-xsm'>
+                <small><%= link_to comment.user.slug, user_path(comment.user) %>
+                  (<%= comment.created_at.strftime("%H:%M %d%b") %>): 
+                </small> <b><%= comment.content %></b>
+                <%#= sanitize comment.content.body.to_s %>
+              </li>
+            <% end %>
+          </ul>
+          <% if user_signed_in? %>
+            <%= form_with(model: [@sortide, @comment], url: create_sortide_comment_sortide_path(@sortide), local: true) do |form| %>
+              <div class="mb-2">
+                <%= form.text_area :content, class: "w-full bg-white border border-teal-500 rounded-lg  p-2 focus:outline-none focus:ring-2 focus:ring-teal-600" %>
+              </div>
+              <div class="text-right">
+                <%= form.submit "Comenta", class: "btn-sm" %>
+              </div>
+            <% end %>
+          <% else %>
+            <p class="text-right text-2xs text-red-400">Si-us-plau <strong><u><%= link_to 'entra', new_user_session_path %></u></strong> per afegir comentari.</p>
+          <% end %>
+        </section>
+        <!-- ./Comments Section -->
+        <!-- youtube VideoResum Section -->
+        <% if @sortide.start_date < Date.today %>
+          <div class='m-6 p-3 bg-white rounded-lg  border-4'>
+            <p class='text-sm text-lime-700 mb-1 font-bold'>Vìdeo Reportage Resum a Youtube: 
+              <%= link_to @sortide.youtube, @sortide.youtube, target: "_blank", class: "underline" %>
+            </p>
+          </div>
+        <% end %>
+        <!-- ./VideoResum Section -->
+        <div class="inline-flex items-center justify-center w-full">
+          <hr class="w-64 h-1 my-4 bg-lime-300 border-0 rounded-lg ">
+        </div>
+        <!-- Piulades Section -->
+        <% if user_signed_in? && @sortide.inscripcios.exists?(user: current_user) %>
+          <section id="piulades_sortide" class='m-6 p-3 bg-emerald-950 rounded-lg  border-4 border-teal-100 min-h-[240px]'>
+            <p class='text-sm text-lime-100 mb-1 font-bold'>Piulades: <span class="text-xs font-thin">(nomès inscrits)</span></p>
+            <%= form_with(model: [@sortide, @piulade || Piulade.new], url: sortide_piulades_path(@sortide), data: { controller: "reset-form", action: "turbo:submit-end->reset-form#reset" }) do |form| %>
+              <%= form.hidden_field :sortide_id, value: @sortide.id %>
+              <% if flash[:piulade_errors] %>
+                <div class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3 mx-3">
+                  <ul>
+                    <% flash[:piulade_errors].each do |error| %>
+                      <li><%= error %></li>
+                    <% end %>
+                  </ul>
+                </div>
+              <% end %>
+              <%= form.text_area :body, class: "w-full bg-yellow-100 border border-lime-400 rounded-lg  p-2 focus:outline-none focus:ring-2 focus:ring-lime-600 resize-none min-h-[180px] text-lg", placeholder: "En que penses?" %>
+              <div class="flex justify-end px-6 -mt-20">
+                <%= form.submit "Piula", class: "btn-sm"%>
+              </div>
+            <% end %>
+          </div>
+          <% if @sortide.piulades.any? %>
+            <ul class='py-3 mx-3'>
+              <% @sortide.piulades.each do |piulade| %>
+                <li class='flex items-center text-sm my-2 py-2 bg-emerald-950  text-lime-600 rounded-lg '>
+                  <%= render_user_avatar(current_user) %>
+                  <span class='inline-block align-middle text-2xs'><%= piulade.created_at.strftime("%d-%m-%Y") %></span>
+                  <span class='inline-block align-middle text-sm font-bold mx-2'><%= piulade.body %></span>
+                </li>
+              <% end %>
+            </ul>
+          <% else %>
+            <div><%= render "piulades/empty" %></div>
+          <% end %>
+        <% else %>
+          <div class='m-6 p-3 bg-emerald-950 rounded-lg  border-4 border-teal-100'>
+            <p class='text-sm text-lime-100 mb-1 font-bold'>Piulades: <span class="text-xs font-thin">(nomès inscrits)</span></p>
+          </div>
+        <% end %><!-- ./if user_signed_in? -->
+        <!-- ./Piulades Section -->
+        <!-- Images Gallery -->
+        <!-- Images Gallery -->
+        <section id="images" class="grid grid-cols-2 gap-4 mt-4">
+          <% @sortide.images.each_with_index do |image, index| %>
+            <div class="col-span-1 flex flex-col items-center">
+              <%= link_to rails_blob_url(image.file, only_path: true), target: "_blank" do %>
+                <%= image_tag rails_blob_url(image.file, only_path: true), class: "w-full h-auto rounded-md shadow-md" %>
+              <% end %>
+              <p class="mt-2 text-2xs md:text-sm text-teal-800 font-semibold"><%= image.caption %></p>
+              <% if current_user.admin? %>
+                <div class="flex justify-center space-x-2 mt-2">
+                  <%= link_to 'Edita', edit_sortide_image_path(@sortide, image), class: 'rounded py-1 px-1 bg-yellow-200 text-xs border border-lime-600 hover:bg-yellow-300 hover:font-semibold flex items-center justify-center; mr-4' %>
+                  <%#= link_to 'Veu', sortide_image_path(@sortide, image), method: :delete, data: { confirm: 'Are you sure you want to delete this image?' }, class: 'mx-2 btn-2xs' %>
+                  <%= button_to 'Esborra', sortide_image_path(@sortide, image), method: :delete, data: { confirm: 'Are you sure you want to delete this image?' }, class: 'mx-2 btn-2xs-red' %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </section>
+        <!-- ./Images Gallery -->
+        <% if current_user.admin? %>
+          <div class="flex justify-center items-center space-x-8 w-full mx-6 py-4 mb-6">
+            <%= link_to 'Nova imatge', new_sortide_image_path(@sortide), class: 'btn-sm' %>
+          </div>
+        <% end %>
+        <!-- ./Images Gallery -->
+        <div class="flex justify-center items-center space-x-8 w-full mx-6 py-4 mb-6">
+        </div>
+      </aside>
+      <!-- ./aside -->
+    </div>
+  </div>

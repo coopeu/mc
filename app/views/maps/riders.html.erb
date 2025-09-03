@@ -1,0 +1,174 @@
+<% %>
+
+
+<div class="container mx-auto px-4 py-8">
+  <h1 class="text-3xl font-bold text-lime-700 mb-6">Motoristes a Catalunya</h1>
+  
+  <div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+    <!-- Filters Sidebar -->
+    <div class="lg:col-span-1">
+      <div class="bg-white rounded-lg shadow p-4">
+        <h3 class="font-bold text-lg mb-4">Filtres</h3>
+        
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">Província</label>
+          <select id="provincia-filter" class="w-full border rounded p-2">
+            <option value="">Totes</option>
+            <option value="Barcelona">Barcelona</option>
+            <option value="Girona">Girona</option>
+            <option value="Lleida">Lleida</option>
+            <option value="Tarragona">Tarragona</option>
+          </select>
+        </div>
+
+        <div class="mb-4">
+          <label class="block text-sm font-medium mb-2">Pla</label>
+          <select id="plan-filter" class="w-full border rounded p-2">
+            <option value="">Tots</option>
+            <option value="SIMPATITZANT">Simpatitzant</option>
+            <option value="ESPORÀDIC">Esporàdic</option>
+            <option value="FREQÜENT">Freqüent</option>
+            <option value="HABITUAL">Habitual</option>
+          </select>
+        </div>
+
+        <div class="text-sm text-gray-600">
+          <p><strong>Total motoristes:</strong> <span id="total-count">0</span></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Map Container -->
+    <div class="lg:col-span-3">
+      <div id="map" class="h-96 rounded-lg shadow"></div>
+    </div>
+  </div>
+</div>
+
+<!-- Leaflet CSS & JS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Initialize map centered on Catalonia
+  const map = L.map('map').setView([41.5912, 1.5209], 8);
+  const totalCountEl = document.getElementById('total-count');
+  
+  // Add OpenStreetMap tiles
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap contributors'
+  }).addTo(map);
+
+  let markerCluster = L.markerClusterGroup();
+  let ridersData = [];
+
+  // Load riders data
+  totalCountEl.textContent = 'Carregant...';
+
+  fetch('/maps/riders.json')
+    .then(response => response.json())
+    .then(data => {
+      ridersData = data.features;
+      displayRiders(ridersData);
+      updateCount(ridersData.length);
+    })
+    .catch(error => {
+      console.error('Error loading riders data:', error);
+      totalCountEl.textContent = 'Error carregant dades';
+    });
+
+  function displayRiders(riders) {
+    // Clear existing markers
+    markerCluster.clearLayers();
+
+    riders.forEach(rider => {
+      let [lng, lat] = rider.geometry.coordinates;
+      if (!lat || !lng) return;
+      
+      // Add a small random "jitter" to coordinates to avoid perfect overlap.
+      // This ensures that every rider is visible on the map, even if they
+      // share the same municipi, once you zoom in.
+      const jitteredLat = parseFloat(lat) + (Math.random() - 0.5) * 0.001;
+      const jitteredLng = parseFloat(lng) + (Math.random() - 0.5) * 0.001;
+
+      // Create custom icon based on plan
+      const planColor = getPlanColor(rider.properties.plan);
+      const icon = L.divIcon({
+        className: 'custom-marker',
+        html: `<div class="w-8 h-8 rounded-full ${planColor} border-2 border-white shadow-lg flex items-center justify-center text-white text-xs font-bold">${rider.properties.plan?.charAt(0) || 'M'}</div>`,
+        iconSize: [32, 32],
+        iconAnchor: [16, 16]
+      });
+
+      const avatarHtml = rider.properties.avatar_url
+        ? `<img src="${rider.properties.avatar_url}" alt="${rider.properties.name}" class="w-12 h-12 rounded-full object-cover border-2 border-white shadow-md">`
+        : `<div class="w-12 h-12 rounded-full bg-gray-300 flex items-center justify-center text-gray-600 font-bold text-xl">${rider.properties.name.charAt(0)}</div>`;
+
+      const popupContent = `
+        <div class="flex items-center space-x-3 p-1" style="width: 220px;">
+          <div>${avatarHtml}</div>
+          <div class="flex-1 overflow-hidden">
+            <h3 class="font-bold text-base truncate" title="${rider.properties.name}">${rider.properties.name}</h3>
+            <p class="text-xs text-gray-600">${rider.properties.municipi || 'Ubicació desconeguda'}</p>
+            <p class="text-xs text-gray-500">Pla: ${rider.properties.plan || 'N/A'}</p>
+            <a href="${rider.properties.profile_url}" target="_blank" class="text-sm text-blue-600 hover:underline">Veure perfil &rarr;</a>
+          </div>
+        </div>
+      `;
+
+      const marker = L.marker([jitteredLat, jitteredLng], { icon: icon }).bindPopup(popupContent);
+      markerCluster.addLayer(marker);
+    });
+
+    map.addLayer(markerCluster);
+
+    // Auto-zoom to fit markers
+    if (riders.length > 0) {
+      map.fitBounds(markerCluster.getBounds(), { padding: [50, 50] });
+    }
+  }
+
+  function getPlanColor(plan) {
+    switch(plan) {
+      case 'SIMPATITZANT': return 'bg-gray-500';
+      case 'ESPORÀDIC': return 'bg-blue-500';
+      case 'FREQÜENT': return 'bg-green-500';
+      case 'HABITUAL': return 'bg-red-500';
+      default: return 'bg-lime-500';
+    }
+  }
+
+  function updateCount(count) {
+    totalCountEl.textContent = count;
+  }
+
+  // Filter functionality
+  document.getElementById('provincia-filter').addEventListener('change', filterRiders);
+  document.getElementById('plan-filter').addEventListener('change', filterRiders);
+
+  function filterRiders() {
+    const provincia = document.getElementById('provincia-filter').value;
+    const plan = document.getElementById('plan-filter').value;
+
+    const filtered = ridersData.filter(rider => {
+      const matchesProvincia = !provincia || rider.properties.provincia === provincia;
+      const matchesPlan = !plan || rider.properties.plan === plan;
+      return matchesProvincia && matchesPlan;
+    });
+
+    displayRiders(filtered);
+    updateCount(filtered.length);
+  }
+});
+</script>
+
+<style>
+.custom-marker {
+  background: transparent;
+  border: none;
+}
+</style>

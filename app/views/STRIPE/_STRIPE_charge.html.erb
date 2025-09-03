@@ -1,0 +1,29 @@
+<div class="text-center pt-8 mb-8 mt-auto">
+  <%= form_tag charges_inscripcions_path, id: 'chargeForm', method: :post do %>
+    <script src="https://checkout.stripe.com/checkout.js" class='stripe-button'
+      data-key='<%= stripe_publishable_key %>'
+      data-mode="payment"
+      data-sku="<%= sku_inscripcio %>"
+      data-image="<%= asset_path('MilRevolts200x200.png') %>"
+      data-name="<%= @sortide.title %>"
+      data-description="INSCRIPCIO A LA SORTIDA"
+      data-amount="<#= (discounted_price * 100).to_i %>"
+      data-locale="es"
+      data-currency="eur"
+      data-submit_type="pay"
+      data-email="<%= current_user.email %>"
+      data-label="Preu  <%= current_user.plan.nom %> <%= discounted_price %>€.  Inscriu-te ara!">
+    </script>
+    <%= hidden_field_tag 'stripeToken' %>
+    <%= hidden_field_tag 'amount', discounted_price %>
+    <%= hidden_field_tag 'stripeEmail' %>
+    <%= hidden_field_tag 'inscripcio[product_id]', @product.id %>
+    <%= hidden_field_tag 'inscripcio[product_sku]', @product.sku %>
+    <%= hidden_field_tag 'inscripcio[user_id]', current_user.id %>
+    <%= hidden_field_tag 'inscripcio[sortide_id]', @sortide.id %>
+  <% end %>
+</div>
+
+<!--
+Stripe keys are now loaded from Rails credentials
+-->
